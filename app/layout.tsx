@@ -11,6 +11,14 @@ export const metadata: Metadata = {
   },
   description:
     "Sayeef Mahmud is a full-stack engineer in Dhaka building production web, mobile and AI-assisted systems.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: "Sayeef Mahmud",
+    locale: "en_US",
+    url: "/",
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = {

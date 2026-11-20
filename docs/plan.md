@@ -45,7 +45,25 @@ Adding, removing or reordering anything should be a content/config edit, not a l
 
 ## Current state (updated 2026-11-21) — read this first in a new session
 
-**Done:** Phases 1–2. **Next:** Phase 3 (components).
+**Done:** Phases 1–4. **Next:** Phase 5 (fidelity, accessibility, performance).
+
+- Phase 4 status (2026-11-21):
+  - `/` (`app/page.tsx`) maps `homeSections` → `homeSectionComponents` in `components/home-sections.tsx` (one component per registry name; each gets its entry and reads copy from `content/`). Hero: one `Portrait` element for both layouts (`order-first` 148px below md, 340px column from md, `preload`), page-load `animate-rise-in` with 60ms stagger on meta / H1 / lead / actions.
+  - `/projects/[slug]` — case-study template (moved from the deleted preview route), `generateStaticParams` = projects with MDX, `generateMetadata` (title, summary, canonical). Unknown slugs render the 404 page with `noindex`; status is 200 because Cache Components streams the page (`dynamicParams` is unavailable with it).
+  - `/projects` — H1 "All projects", `ProjectList` with names as H2, then More projects (`Subheading level="h2"`) and the home footer. Copy in `projectsPage` (`content/site.ts`).
+  - Metadata: root OG/Twitter defaults + canonical; `app/opengraph-image.tsx` (hero eyebrow, headline, portrait; 1200×630), `app/icon.tsx` (32px) + `app/apple-icon.tsx` (180px) "S" monogram, all prerendered static; shared code + light token values in `lib/og.tsx`; static woff fonts for Satori in `assets/og/` (Fontsource, OFL — Satori can't read woff2). Default Next `favicon.ico` removed. `app/sitemap.ts` (/, /projects, case studies), `app/robots.ts`.
+  - Resume: still hidden via `site.resumeUrl`; drop `public/resume.pdf` in and set it to `"/resume.pdf"`.
+  - Verified: tsc, lint, `next build` (every route static / PPR); in the browser: home 1440 light vs 01/04, 390 dark vs 05 (portrait above meta), `/projects` 1440, case study loads with no console errors; one H1 per page; titles per page; sitemap, robots, icons, OG image render.
+
+- Phase 3 status (2026-11-21):
+  - Written: `components/layout.tsx` (Container, Section with `spacing` variants, SectionHeader, `cx`), `ui.tsx` (SmartLink, TextLink, Button primary/secondary/outline/text × lg/md/sm/block, ActionButton/ActionRow hide actions without `href`, StatusBadge, MetaList, DefinitionRows, RuleList/RuleItem, VisuallyHidden), `header.tsx` + `mobile-menu.tsx` (scroll lock, Esc, focus trap, closes on link click / resize to md), `footer.tsx`, `media.tsx` (Placeholder, DeviceFrame row/hero, GalleryTile, Portrait via next/image `preload`), `project-row.tsx`, `blocks.tsx` (MoreProjectRows, Experience, Earlier, StepList, ToolList, StackRows, Achievements, Prose, EmailLink, Subheading), `case-study.tsx` (StackLine, CaseStudyMedia, Article, FeatureList, ArchitectureDiagram, Results, Shiki CodeBlock with css-variables theme, NextProjectLink), `toc.tsx`; `mdx-components.tsx` now styled.
+  - Design-fidelity findings: the design HTML is **content-box** (no border-box reset) → global `box-sizing: content-box` in globals.css, `box-border` only where the design says so; content is 1280px wide at 1440 (not 1120). `text-ui`/`text-small` line-height 1.6 (inherited in the HTML). Header border is always visible (as in screenshots). Code blocks are monochrome (all Shiki vars → `--code-fg`).
+  - The Phase 3 preview routes were replaced in Phase 4.
+  - Verified: tsc, lint and `next build` pass (all routes static). Home matches 01 (1440 light), 05 (390 dark) and 02 (390 light); case study matches 06/07; mobile menu matches 03 (Esc, focus trap, focus return, scroll lock, link click all work). Only intended differences: hidden resume buttons and project links/CTAs (no URLs yet).
+  - Mobile-menu links on `/` scroll manually (close sheet → `scrollIntoView` → `pushState`); a `next/link` hash navigation is dropped when the sheet unmounts mid-click.
+  - Shiki runs inside a `"use cache"` + `cacheLife("max")` function (it reads the clock, which Cache Components forbids during prerender).
+  - Known, not fixable in CSS: → ↗ ← are not in the Latin subset of Public Sans, so they render in the OS fallback font (the reference renderer had a different fallback). ↓ is in the subset.
+  - Phase 4 notes: hero portrait above the meta on < md (148px) + load fade-in (`animate-rise-in` exists); case-study mobile header shows no theme toggle in the design (`<Header mobileThemeToggle={false}>`).
 
 - Phase 2 content layer:
   - `content/types.ts` — all content types (`Project`, `Action`, `Fact`, `Shot`, `CaseStudyFrontmatter`, `TocEntry`, MDX block props, …). Optional `href`/`src` = hidden link / striped placeholder.
@@ -66,7 +84,6 @@ Adding, removing or reordering anything should be a content/config edit, not a l
   - `lib/theme.ts` — `themeInitScript` (localStorage `theme` → OS preference) injected in `<head>` by `app/layout.tsx`.
   - `components/theme-toggle.tsx` — client toggle; sizing/border passed via `className` (desktop `size-9 rounded-control border border-border`, mobile `size-11`).
   - `app/layout.tsx` — metadata (`metadataBase` https://sayeefmahmud.com), viewport theme colours.
-  - `app/page.tsx` — **temporary** token/type check page; replace in Phase 4.
   - `public/images/portrait.jpg` — 4:5 portrait, 1856×2320.
 - Verified: build/lint/tsc pass; fonts load; theme follows OS, toggles, persists across reload, no flash, no console errors.
 - Not yet set up: Vercel project + DNS (Phase 6), resume PDF, project screenshots, case-study content (all pending from owner).
@@ -83,14 +100,14 @@ Adding, removing or reordering anything should be a content/config edit, not a l
 - `content/projects/<slug>.mdx` with frontmatter (role, timeline, platform, status, stack, links, frame, gallery).
 - `lib/projects.ts`: `getProjects`, `getProject(slug)`, `getNextProject(slug)`, `hasCaseStudy(slug)`.
 
-## Phase 3 — Components
+## Phase 3 — Components ✅ (done 2026-11-21)
 - Layout primitives: `Container`, `Section`, `SectionHeader`.
 - UI: `Button` (primary / secondary / text, sizes 48/44/36), `TextLink` (underline styles, ↗ / → / ↓ arrows), `StatusBadge`, `MetaList` (facts `<dl>` grid), `RuleList` (rows with 1px top rule), `VisuallyHidden`.
 - Chrome: `Header` (sticky 64px, border after 8px scroll, current-link state), `MobileMenu` (full-screen sheet, scroll lock, Esc, focus trap, closes on link click, 200ms fade), `Footer`.
 - Media: `DeviceFrame` (`browser` | `window` | `phone` | `land`), `Placeholder` (stripes + mono label), `Portrait` (`next/image`, 4:5, `priority` in hero).
 - Blocks: `ProjectRow` (alternating direction via index, 4px hover lift), `ExperienceEntry`, `EarlierRow`, `StepList`, `ToolList`, `StackRows`, `AchievementItem`, `CodeBlock`, `Toc` (sticky, IntersectionObserver active state).
 
-## Phase 4 — Pages
+## Phase 4 — Pages ✅ (done 2026-11-21)
 - `/` — rendered from the section registry: Hero (load fade-in, 60ms stagger; portrait above meta on < md), Selected projects, More projects, Experience, How I work, Stack, Achievements & certifications, About, Contact + footer.
 - `/projects/[slug]` — case study template, `generateStaticParams` only for projects that have MDX; "Next project" link.
 - `/projects` — all projects, reusing `ProjectRow`.

@@ -60,6 +60,7 @@ export const labels = {
   allProjects: "All projects",
   onThisPage: "On this page",
   nextProject: "Next project",
+  screenshots: "Screenshots",
   stack: "Stack",
 } as const;
 
@@ -91,6 +92,13 @@ export const hero = {
     { label: "Anthropic", value: "Claude Certified Architect" },
     { label: "Codeforces", value: "Master, max 2183" },
   ] satisfies Fact[],
+};
+
+/** `/projects`: every selected project, then the smaller ones. */
+export const projectsPage = {
+  title: "All projects",
+  description:
+    "Web, desktop and mobile apps and games by Sayeef Mahmud, with stack, status and case studies.",
 };
 
 export const moreProjects = {
