@@ -115,4 +115,4 @@ Adding, removing or reordering anything should be a content/config edit, not a l
 | Case studies | Pending (Watchlist draft in handoff) | One MDX per project; link hidden for projects without one. |
 | Profile URLs | Provided (2026-11-21) | LinkedIn, GitHub, Codeforces, CodeChef in `content/site.ts` (`social`). |
 | Project URLs | None public yet (owner, 2026-11-21) | Live site / GitHub / Google Play per project. Set `href` in `content/projects.ts`; project links stay hidden until then. |
-| Copy placeholders | Pending | Real email, experience dates/summaries, second About paragraph, Watchlist timeline/challenges/what's next. |
+| Copy placeholders | Pending | Experience dates/summaries, second About paragraph, Watchlist timeline/challenges/what's next. |

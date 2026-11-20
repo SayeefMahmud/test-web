@@ -3,7 +3,7 @@
 // and the inline copy in `docs/handoff/design/A-Home.dc.html`.
 //
 // Pending from the owner (keep as-is until provided, don't invent):
-// real email, resume PDF, experience dates and summaries,
+// resume PDF, experience dates and summaries,
 // the second About paragraph.
 
 import type {
@@ -25,8 +25,7 @@ export const site = {
   name: "Sayeef Mahmud",
   location: "Dhaka, Bangladesh",
   url: "https://sayeefmahmud.com",
-  /** Placeholder from the handoff; replace with the real address. */
-  email: "hello@sayeefmahmud.com",
+  email: "smahmud2866@gmail.com",
   /** Set to "/resume.pdf" once `public/resume.pdf` exists; all resume buttons stay hidden until then. */
   resumeUrl: undefined as string | undefined,
   copyrightYear: "2026",
