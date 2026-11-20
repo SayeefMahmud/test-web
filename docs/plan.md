@@ -49,8 +49,8 @@ Adding, removing or reordering anything should be a content/config edit, not a l
 
 - Phase 2 content layer:
   - `content/types.ts` — all content types (`Project`, `Action`, `Fact`, `Shot`, `CaseStudyFrontmatter`, `TocEntry`, MDX block props, …). Optional `href`/`src` = hidden link / striped placeholder.
-  - `content/site.ts` — identity (`site.resumeUrl` is `undefined` → all resume buttons hidden), `social` links (no URLs yet → hidden), UI `labels`, and copy for header, mobile menu, hero, more projects, experience, how I work, stack, achievements, about, contact, footer.
-  - `content/projects.ts` — the 5 selected projects in order. No link URLs or screenshots yet. `tagline` (Next-project line) only on Stash.
+  - `content/site.ts` — identity (`site.resumeUrl` is `undefined` → all resume buttons hidden), `social` profile links (URLs set), UI `labels`, and copy for header, mobile menu, hero, more projects, experience, how I work, stack, achievements, about, contact, footer.
+  - `content/projects.ts` — the 5 selected projects in order. No public project URLs yet (owner confirmed) → project links hidden; no screenshots yet. `tagline` (Next-project line) only on Stash.
   - `content/home.ts` — `homeSections` registry (`id`, `component`, `title?`, `nav?`, `action?`) and derived `navLinks` (`/#id`). Section components are named by string; Phase 4's `app/page.tsx` maps names → components.
   - Case studies: `content/projects/<slug>.mdx` (YAML frontmatter via `remark-frontmatter` + `remark-mdx-frontmatter`, configured in `next.config.ts`) registered in `content/case-studies.ts`. Only `watchlist.mdx` exists (the handoff draft). Body is markdown (`##` sections, `###` challenges, `**Title.**` decisions, fenced code, lists) plus `<FeatureList>`, `<ArchitectureDiagram>`, `<Results>`.
   - `mdx-components.tsx` — **unstyled** stand-ins for those MDX blocks + `h2` with slug id. Phase 3 replaces them with the styled blocks (keep names/props); also add `h3`, `p`, `strong`, `ul`, `pre` (Shiki) styling.
@@ -113,5 +113,6 @@ Adding, removing or reordering anything should be a content/config edit, not a l
 | Resume PDF | Pending | Goes to `public/resume.pdf`; buttons hidden until present. |
 | Project screenshots | Pending | Browser/window 1600×1000, phone 1080×2280, landscape 2280×1080 → `public/images/projects/<slug>/`. Placeholders until then. |
 | Case studies | Pending (Watchlist draft in handoff) | One MDX per project; link hidden for projects without one. |
-| Link URLs | Pending | LinkedIn, GitHub, Codeforces, CodeChef profiles; per-project Live site / GitHub / Google Play. Set `href` in `content/site.ts` (`social`) and `content/projects.ts`; links stay hidden until then. |
+| Profile URLs | Provided (2026-11-21) | LinkedIn, GitHub, Codeforces, CodeChef in `content/site.ts` (`social`). |
+| Project URLs | None public yet (owner, 2026-11-21) | Live site / GitHub / Google Play per project. Set `href` in `content/projects.ts`; project links stay hidden until then. |
 | Copy placeholders | Pending | Real email, experience dates/summaries, second About paragraph, Watchlist timeline/challenges/what's next. |

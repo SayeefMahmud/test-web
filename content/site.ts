@@ -3,7 +3,7 @@
 // and the inline copy in `docs/handoff/design/A-Home.dc.html`.
 //
 // Pending from the owner (keep as-is until provided, don't invent):
-// real email, social/profile URLs, resume PDF, experience dates and summaries,
+// real email, resume PDF, experience dates and summaries,
 // the second About paragraph.
 
 import type {
@@ -33,10 +33,10 @@ export const site = {
 } as const;
 
 export const social = {
-  linkedin: { label: "LinkedIn", href: undefined },
-  github: { label: "GitHub", href: undefined },
-  codeforces: { label: "Codeforces", href: undefined },
-  codechef: { label: "CodeChef", href: undefined },
+  linkedin: { label: "LinkedIn", href: "https://linkedin.com/in/notsayeef/" },
+  github: { label: "GitHub", href: "https://github.com/SayeefMahmud" },
+  codeforces: { label: "Codeforces", href: "https://codeforces.com/profile/thisIsMorningstar" },
+  codechef: { label: "CodeChef", href: "https://www.codechef.com/users/sayeef_mahmud" },
 } satisfies Record<string, Link>;
 
 const resume = (label: string, variant: Action["variant"]): Action => ({
