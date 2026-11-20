@@ -1,0 +1,112 @@
+---
+summary: One place to track movies, TV shows and sports teams, with reminders for new episodes and upcoming fixtures.
+facts:
+  - { label: Role, value: "Solo: product, design, build, deploy" }
+  - { label: Timeline, value: "YYYY – present" }
+  - { label: Platform, value: "Web, responsive" }
+  - { label: Status, value: "Live on Vercel" }
+stack:
+  - Next.js (App Router)
+  - TypeScript
+  - Prisma
+  - PostgreSQL (Neon)
+  - Auth.js
+  - TMDB API
+  - TheSportsDB API
+  - Cron jobs
+  - Vitest
+hero:
+  label: "Screenshot: Watchlist home, signed in"
+gallery:
+  - label: "Screenshot: Show page with episode tracker"
+  - label: "Screenshot: Live match score"
+  - label: "Screenshot: Reminder email"
+tocLabels:
+  "Architecture & technical decisions": Architecture
+  "Results & status": Results
+---
+
+## The problem
+
+Films lived in one app, shows in another and football fixtures in a third, and none of them told me when something I cared about was about to air. I wanted one list for everything I watch, and reminders I could trust.
+
+## What I built
+
+A Next.js web app where you follow movies, shows, teams and leagues side by side. It tracks progress down to the episode, sends reminders by email and in the app, shows live scores during matches, and comes with 56 curated "best of" lists to start from.
+
+## Key features
+
+<FeatureList
+  items={[
+    { title: "One list for everything", description: "Movies, TV shows, teams and leagues in a single watchlist." },
+    { title: "Episode tracking", description: "Mark episodes watched and see what is next." },
+    { title: "Reminders", description: "Email and in-app alerts for new episodes and upcoming fixtures." },
+    { title: "Live scores", description: "Match scores update while a game is on." },
+    { title: "Curated lists", description: "56 hand-picked \"best of\" lists." },
+    { title: "Sign-in", description: "Email link or Google account, via Auth.js." },
+  ]}
+/>
+
+## Architecture & technical decisions
+
+<ArchitectureDiagram
+  flow={["Browser", "Next.js on Vercel", "Postgres (Neon)"]}
+  primary={1}
+  services={["TMDB API", "TheSportsDB API", "Cron → email reminders"]}
+  caption="Diagram placeholder: replace with the final architecture drawing."
+/>
+
+**Server components first.** Pages render on the server with the App Router; client components only where there is interaction.
+
+**Prisma on Neon Postgres.** A typed schema and migrations, on serverless Postgres that suits Vercel.
+
+**Scheduled jobs for reminders.** Cron routes look for upcoming episodes and fixtures and send notifications.
+
+**One model, two sources.** TMDB and TheSportsDB responses are mapped into one internal model at the edge of the app.
+
+```ts
+// app/api/cron/reminders/route.ts (simplified)
+export async function GET(req: Request) {
+  assertCronSecret(req);
+  const due = await db.reminder.findMany({
+    where: { sendAt: { lte: new Date() }, sentAt: null },
+  });
+  for (const r of due) {
+    await sendReminder(r);
+    await db.reminder.update({
+      where: { id: r.id },
+      data: { sentAt: new Date() },
+    });
+  }
+  return Response.json({ sent: due.length });
+}
+```
+
+## Challenges
+
+### Reminders that fire exactly once
+
+Cron runs can overlap or retry. Each reminder records when it was sent, so a repeated run does nothing.
+
+### Rate-limited data sources
+
+Third-party data is cached and refreshed on a schedule instead of on every request.
+
+### A reviewed API surface
+
+Every route checks the session and validates input; the API went through a dedicated security review.
+
+## Results & status
+
+<Results
+  items={[
+    { value: "Live", label: "Deployed on Vercel" },
+    { value: "980+", label: "Automated tests" },
+    { value: "56", label: "Curated lists" },
+  ]}
+/>
+
+## What's next
+
+- Push notifications for mobile browsers
+- Shared watchlists with friends
