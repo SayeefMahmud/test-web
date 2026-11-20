@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>body{margin:0} a{color:inherit} a:hover{color:inherit}</style>
+</helmet>
+<div style="container-type:inline-size; position:relative; background:var(--bg); color:var(--fg); font-family:'Public Sans',system-ui,sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased">
+
+<header style="position:sticky; top:0; z-index:5; background:var(--bg); border-bottom:1px solid var(--border)">
+  <div style="max-width:1280px; margin:0 auto; padding:0 clamp(20px,5.5cqi,80px); height:64px; display:flex; align-items:center; justify-content:space-between; gap:24px">
+    <a href="#" style="font-family:Newsreader,serif; font-size:21px; letter-spacing:-0.01em; text-decoration:none">Sayeef Mahmud</a>
+    <sc-if value="{{desktop}}" hint-placeholder-val="{{true}}">
+      <nav style="display:flex; align-items:center; gap:36px; font-size:15px">
+        <div style="display:flex; gap:28px">
+          <a href="#projects" style="text-decoration:none; color:var(--muted)" style-hover="color:var(--fg)">Projects</a>
+          <a href="#experience" style="text-decoration:none; color:var(--muted)" style-hover="color:var(--fg)">Experience</a>
+          <a href="#about" style="text-decoration:none; color:var(--muted)" style-hover="color:var(--fg)">About</a>
+          <a href="#contact" style="text-decoration:none; color:var(--muted)" style-hover="color:var(--fg)">Contact</a>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center">
+          <button aria-label="Switch theme" style="width:36px; height:36px; border:1px solid var(--border); border-radius:8px; background:transparent; display:grid; place-items:center; cursor:pointer" style-hover="background:var(--sunk)"><span style="width:14px; height:14px; border-radius:50%; border:1.5px solid var(--fg); background:linear-gradient(90deg,var(--fg) 50%,transparent 50%)"></span></button>
+          <a href="#" style="height:36px; padding:0 14px; border:1px solid var(--fg); border-radius:8px; display:flex; align-items:center; gap:8px; font-weight:500; font-size:14px; text-decoration:none" style-hover="background:var(--fg); color:var(--bg)">Resume <span aria-hidden="true">↓</span></a>
+        </div>
+      </nav>
+    </sc-if>
+    <sc-if value="{{mobile}}" hint-placeholder-val="{{false}}">
+      <div style="display:flex; gap:4px; align-items:center">
+        <button aria-label="Switch theme" style="width:44px; height:44px; border:0; background:transparent; display:grid; place-items:center"><span style="width:16px; height:16px; border-radius:50%; border:1.5px solid var(--fg); background:linear-gradient(90deg,var(--fg) 50%,transparent 50%)"></span></button>
+        <button aria-label="Open menu" style="width:44px; height:44px; border:0; background:transparent; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px"><span style="width:20px; height:1.5px; background:var(--fg)"></span><span style="width:20px; height:1.5px; background:var(--fg)"></span></button>
+      </div>
+    </sc-if>
+  </div>
+</header>
+
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{false}}">
+  <div style="position:absolute; top:0; left:0; right:0; height:844px; z-index:10; background:var(--bg); display:flex; flex-direction:column; padding:0 20px 32px">
+    <div style="height:64px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); margin:0 -20px; padding:0 20px">
+      <span style="font-family:Newsreader,serif; font-size:21px">Sayeef Mahmud</span>
+      <button aria-label="Close menu" style="width:44px; height:44px; border:0; background:transparent; font-size:26px; color:var(--fg); line-height:1">×</button>
+    </div>
+    <nav style="display:flex; flex-direction:column; margin-top:24px">
+      <a href="#projects" style="font-family:Newsreader,serif; font-size:36px; line-height:1.2; padding:14px 0; border-bottom:1px solid var(--border); text-decoration:none">Projects</a>
+      <a href="#experience" style="font-family:Newsreader,serif; font-size:36px; line-height:1.2; padding:14px 0; border-bottom:1px solid var(--border); text-decoration:none">Experience</a>
+      <a href="#about" style="font-family:Newsreader,serif; font-size:36px; line-height:1.2; padding:14px 0; border-bottom:1px solid var(--border); text-decoration:none">About</a>
+      <a href="#contact" style="font-family:Newsreader,serif; font-size:36px; line-height:1.2; padding:14px 0; border-bottom:1px solid var(--border); text-decoration:none">Contact</a>
+    </nav>
+    <div style="margin-top:auto; display:flex; flex-direction:column; gap:12px">
+      <a href="#" style="height:52px; border-radius:8px; background:var(--accent); color:var(--accentFg); display:flex; align-items:center; justify-content:center; font-weight:500; text-decoration:none">Download resume (PDF)</a>
+      <div style="display:flex; justify-content:space-between; font-size:14px; color:var(--muted); padding-top:8px"><span>{{email}}</span><span>LinkedIn · GitHub</span></div>
+    </div>
+  </div>
+</sc-if>
+
+<section style="max-width:1280px; margin:0 auto; padding:clamp(56px,10cqi,144px) clamp(20px,5.5cqi,80px) clamp(56px,7cqi,104px)">
+  <div style="display:flex; flex-wrap:wrap; gap:clamp(32px,5cqi,80px); align-items:flex-end">
+  <sc-if value="{{sideMobile}}" hint-placeholder-val="{{false}}">
+    <div style="width:148px; position:relative; aspect-ratio:4/5; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(135deg,var(--ph1) 0 10px,var(--ph2) 10px 20px)"><span style="font:11px 'IBM Plex Mono',monospace; color:var(--muted)">Portrait</span><img src="portrait.jpg" alt="Sayeef Mahmud" onError="{{hideImg}}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover"></div>
+  </sc-if>
+  <div style="flex:1 1 600px; min-width:0">
+  <sc-if value="{{byline}}" hint-placeholder-val="{{false}}">
+    <div style="display:flex; align-items:center; gap:16px">
+      <div style="flex:none; width:64px; height:64px; position:relative; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(135deg,var(--ph1) 0 8px,var(--ph2) 8px 16px)"><span style="font:10px 'IBM Plex Mono',monospace; color:var(--muted)">Photo</span><img src="portrait.jpg" alt="Sayeef Mahmud" onError="{{hideImg}}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover"></div>
+      <div style="line-height:1.4"><p style="margin:0; font-weight:600; font-size:16px">Sayeef Mahmud</p><p style="margin:2px 0 0; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted)">Dhaka, Bangladesh · Software engineer at Cefalo</p></div>
+    </div>
+  </sc-if>
+  <sc-if value="{{noByline}}" hint-placeholder-val="{{true}}">
+  <p style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted)">Dhaka, Bangladesh · Software engineer at Cefalo</p>
+  </sc-if>
+  <h1 style="margin:20px 0 0; font-family:Newsreader,serif; font-weight:400; font-size:clamp(38px,5.4cqi,76px); line-height:1.06; letter-spacing:-0.02em; max-width:17em; text-wrap:balance">I'm Sayeef Mahmud, a full-stack engineer building production web, mobile and AI-assisted systems.</h1>
+  <p style="margin:28px 0 0; max-width:36em; font-size:clamp(17px,1.35cqi,19px); color:var(--muted); text-wrap:pretty">I build software for clients in the Nordics at Cefalo, mostly ASP.NET Core and Next.js. I like the hard, unglamorous parts: identity and access, cloud infrastructure, and bugs that only appear in production. Outside work I ship my own apps for desktop, mobile and the web.</p>
+  <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:36px; align-items:center">
+    <a href="#projects" style="height:48px; padding:0 22px; border-radius:8px; background:var(--accent); color:var(--accentFg); display:flex; align-items:center; font-weight:500; text-decoration:none" style-hover="background:var(--accentHover); color:var(--accentFg)">View projects</a>
+    <a href="#contact" style="height:48px; padding:0 22px; border-radius:8px; border:1px solid var(--border2); display:flex; align-items:center; font-weight:500; text-decoration:none" style-hover="border-color:var(--fg)">Contact</a>
+    <a href="#" style="height:48px; padding:0 10px; display:flex; align-items:center; gap:8px; font-weight:500; text-decoration:underline; text-underline-offset:4px; text-decoration-color:var(--border2)">Resume (PDF) <span aria-hidden="true">↓</span></a>
+  </div>
+  </div>
+  <sc-if value="{{sideDesk}}" hint-placeholder-val="{{false}}">
+    <div style="flex:0 1 340px; min-width:260px; position:relative; aspect-ratio:4/5; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(135deg,var(--ph1) 0 10px,var(--ph2) 10px 20px)"><span style="font:12px 'IBM Plex Mono',monospace; color:var(--muted)">Portrait · portrait.jpg</span><img src="portrait.jpg" alt="Sayeef Mahmud" onError="{{hideImg}}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover"></div>
+  </sc-if>
+  </div>
+  <dl style="margin:clamp(48px,6cqi,88px) 0 0; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:0 32px">
+    <sc-if value="{{inProof}}" hint-placeholder-val="{{false}}">
+      <div style="border-top:1px solid var(--border); padding-top:14px; margin-bottom:16px; display:flex; gap:14px; align-items:center">
+        <div style="flex:none; width:56px; height:70px; position:relative; border-radius:3px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(135deg,var(--ph1) 0 8px,var(--ph2) 8px 16px)"><span style="font:9px 'IBM Plex Mono',monospace; color:var(--muted)">Photo</span><img src="portrait.jpg" alt="Sayeef Mahmud" onError="{{hideImg}}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover"></div>
+        <div><dt style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--muted)">Based in</dt><dd style="margin:4px 0 0; font-size:15px; font-weight:500">Dhaka, Bangladesh</dd></div>
+      </div>
+    </sc-if>
+    <sc-for list="{{proof}}" as="x" hint-placeholder-count="4">
+      <div style="border-top:1px solid var(--border); padding-top:14px; margin-bottom:16px">
+        <dt style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--muted)">{{x.k}}</dt>
+        <dd style="margin:4px 0 0; font-size:15px; font-weight:500">{{x.v}}</dd>
+      </div>
+    </sc-for>
+  </dl>
+</section>
+
+<section id="projects" style="max-width:1280px; margin:0 auto; padding:clamp(56px,8cqi,112px) clamp(20px,5.5cqi,80px) 0; border-top:1px solid var(--border)">
+  <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:clamp(40px,5cqi,72px)">
+    <h2 style="margin:0; font-family:Newsreader,serif; font-weight:400; font-size:clamp(32px,3.4cqi,48px); letter-spacing:-0.015em; line-height:1.1">Selected projects</h2>
+    <a href="#" style="font-weight:500; font-size:15px; text-decoration:none; color:var(--accent)" style-hover="text-decoration:underline">All projects →</a>
+  </div>
+  <div style="display:flex; flex-direction:column; gap:clamp(64px,8cqi,128px)">
+    <sc-for list="{{projects}}" as="p" hint-placeholder-count="5">
+      <article style="display:flex; flex-wrap:wrap; align-items:center; gap:clamp(28px,5cqi,72px); flex-direction:{{p.dir}}">
+        <a href="#" aria-label="Open case study" style="flex:1 1 520px; min-width:0; display:block; border-radius:14px; background:var(--sunk); aspect-ratio:4/3; padding:7%; box-sizing:border-box; display:flex; align-items:center; justify-content:center; text-decoration:none; transition:transform .4s cubic-bezier(.2,.7,.2,1)" style-hover="transform:translateY(-4px)">
+          <sc-if value="{{p.isBrowser}}"><div style="width:100%; height:100%; display:flex; flex-direction:column; background:var(--surface); border-radius:8px; box-shadow:0 1px 2px rgba(0,0,0,.06),0 12px 32px -12px rgba(0,0,0,.18); overflow:hidden"><div style="height:30px; flex:none; display:flex; align-items:center; gap:6px; padding:0 12px; border-bottom:1px solid var(--border)"><span style="width:8px; height:8px; border-radius:50%; background:var(--border2)"></span><span style="width:8px; height:8px; border-radius:50%; background:var(--border2)"></span><span style="width:8px; height:8px; border-radius:50%; background:var(--border2)"></span></div><div style="flex:1; display:flex; align-items:center; justify-content:center; padding:16px; text-align:center; font:12px/1.5 'IBM Plex Mono',monospace; color:var(--muted); background:repeating-linear-gradient(135deg,var(--ph1) 0 10px,var(--ph2) 10px 20px)">{{p.shot}}</div></div></sc-if>
+          <sc-if value="{{p.isWindow}}"><div style="width:100%; height:86%; display:flex; flex-direction:column; background:var(--surface); border-radius:10px; box-shadow:0 1px 2px rgba(0,0,0,.06),0 12px 32px -12px rgba(0,0,0,.18); overflow:hidden"><div style="height:28px; flex:none; display:flex; align-items:center; gap:6px; padding:0 12px"><span style="width:9px; height:9px; border-radius:50%; background:var(--border2)"></span><span style="width:9px; height:9px; border-radius:50%; background:var(--border2)"></span><span style="width:9px; height:9px; border-radius:50%; background:var(--border2)"></span></div><div style="flex:1; display:flex; align-items:center; justify-content:center; padding:16px; text-align:center; font:12px/1.5 'IBM Plex Mono',monospace; color:var(--muted); background:repeating-linear-gradient(135deg,var(--ph1) 0 10px,var(--ph2) 10px 20px)">{{p.shot}}</div></div></sc-if>
+          <sc-if value="{{p.isPhone}}"><div style="height:100%; aspect-ratio:9/19; border-radius:28px; border:7px solid var(--device); box-sizing:border-box; overflow:hidden; display:flex; align-items:center; justify-content:center; padding:12px; text-align:center; font:11px/1.5 'IBM Plex Mono',monospace; color:var(--muted); background:repeating-linear-gradient(135deg,var(--ph1) 0 10px,var(--ph2) 10px 20px); box-shadow:0 12px 32px -12px rgba(0,0,0,.25)">{{p.shot}}</div></sc-if>
+          <sc-if value="{{p.isLand}}"><div style="width:100%; aspect-ratio:19/9; border-radius:24px; border:7px solid var(--device); box-sizing:border-box; overflow:hidden; display:flex; align-items:center; justify-content:center; padding:12px; text-align:center; font:12px/1.5 'IBM Plex Mono',monospace; color:var(--muted); background:repeating-linear-gradient(135deg,var(--ph1) 0 10px,var(--ph2) 10px 20px); box-shadow:0 12px 32px -12px rgba(0,0,0,.25)">{{p.shot}}</div></sc-if>
+        </a>
+        <div style="flex:1 1 340px; min-width:0">
+          <p style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted)">{{p.num}} · {{p.platform}}</p>
+          <h3 style="margin:10px 0 0; font-family:Newsreader,serif; font-weight:400; font-size:clamp(30px,2.8cqi,40px); line-height:1.1; letter-spacing:-0.015em">{{p.name}}</h3>
+          <p style="margin:14px 0 0; font-size:17px; text-wrap:pretty">{{p.summary}}</p>
+          <dl style="margin:24px 0 0; display:grid; grid-template-columns:88px 1fr; gap:10px 16px; font-size:14px">
+            <dt style="color:var(--muted)">Status</dt>
+            <dd style="margin:0"><span style="display:inline-flex; align-items:center; gap:8px; font-weight:500"><span style="width:7px; height:7px; border-radius:50%; background:{{p.dot}}"></span>{{p.status}}</span></dd>
+            <dt style="color:var(--muted)">Runs on</dt><dd style="margin:0">{{p.devices}}</dd>
+            <dt style="color:var(--muted)">Stack</dt><dd style="margin:0">{{p.techLine}}</dd>
+            <dt style="color:var(--muted)">Notes</dt><dd style="margin:0">{{p.signal}}</dd>
+          </dl>
+          <div style="display:flex; flex-wrap:wrap; gap:8px 24px; margin-top:24px; font-size:15px; font-weight:500">
+            <sc-for list="{{p.links}}" as="l" hint-placeholder-count="2">
+              <a href="#" style="text-decoration:underline; text-decoration-color:var(--border2); text-underline-offset:5px" style-hover="text-decoration-color:var(--fg)">{{l.label}} {{l.a}}</a>
+            </sc-for>
+          </div>
+        </div>
+      </article>
+    </sc-for>
+  </div>
+</section>
+
+<sc-if value="{{full}}" hint-placeholder-val="{{true}}">
+
+<section style="max-width:1280px; margin:0 auto; padding:clamp(64px,8cqi,112px) clamp(20px,5.5cqi,80px) 0">
+  <h3 style="margin:0 0 12px; font-size:15px; font-weight:600">More projects</h3>
+  <sc-for list="{{more}}" as="x" hint-placeholder-count="3">
+    <div style="display:flex; justify-content:space-between; gap:16px; padding:14px 0; border-top:1px solid var(--border); font-size:15px"><span>{{x.name}}</span><span style="color:var(--muted); flex:none">{{x.type}}</span></div>
+  </sc-for>
+</section>
+
+<section id="experience" style="max-width:1280px; margin:0 auto; padding:clamp(80px,10cqi,144px) clamp(20px,5.5cqi,80px) 0">
+  <h2 style="margin:0 0 clamp(32px,4cqi,56px); font-family:Newsreader,serif; font-weight:400; font-size:clamp(32px,3.4cqi,48px); letter-spacing:-0.015em; line-height:1.1">Experience</h2>
+  <sc-for list="{{experience}}" as="e" hint-placeholder-count="2">
+    <div style="display:flex; flex-wrap:wrap; gap:8px clamp(24px,4cqi,64px); padding:28px 0; border-top:1px solid var(--border)">
+      <div style="flex:0 0 220px">
+        <p style="margin:0; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted)">{{e.time}}</p>
+        <p style="margin:4px 0 0; font-weight:500">{{e.org}}</p>
+      </div>
+      <div style="flex:1 1 420px; min-width:0; max-width:680px">
+        <h3 style="margin:0; font-size:19px; font-weight:600; line-height:1.4">{{e.role}}</h3>
+        <p style="margin:2px 0 0; font-size:15px; color:var(--muted)">{{e.type}}</p>
+        <p style="margin:12px 0 0; text-wrap:pretty">{{e.summary}}</p>
+        <p style="margin:12px 0 0; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted)">{{e.tech}}</p>
+      </div>
+    </div>
+  </sc-for>
+  <h3 style="margin:40px 0 4px; font-size:15px; font-weight:600">Earlier</h3>
+  <sc-for list="{{earlier}}" as="e" hint-placeholder-count="2">
+    <div style="display:flex; flex-wrap:wrap; gap:4px clamp(24px,4cqi,64px); padding:14px 0; border-top:1px solid var(--border); font-size:15px">
+      <span style="flex:0 0 220px; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted); padding-top:2px">{{e.time}}</span>
+      <span style="flex:1 1 420px"><strong style="font-weight:600">{{e.role}}</strong>, {{e.org}} <span style="color:var(--muted)">· {{e.d}}</span></span>
+    </div>
+  </sc-for>
+</section>
+
+<section style="max-width:1280px; margin:0 auto; padding:clamp(80px,10cqi,144px) clamp(20px,5.5cqi,80px) 0">
+  <h2 style="margin:0; font-family:Newsreader,serif; font-weight:400; font-size:clamp(32px,3.4cqi,48px); letter-spacing:-0.015em; line-height:1.1">How I work</h2>
+  <p style="margin:16px 0 0; max-width:38em; font-size:18px; color:var(--muted); text-wrap:pretty">I work spec-first, and I use Claude Code agents as part of a team's normal process. They get the same inputs a new teammate would: a written spec, a reviewed plan, and tests that define done.</p>
+  <ol style="list-style:none; margin:clamp(36px,4cqi,56px) 0 0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:32px">
+    <sc-for list="{{steps}}" as="s" hint-placeholder-count="3">
+      <li style="border-top:1px solid var(--fg); padding-top:16px">
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted)">{{s.n}}</span>
+        <h3 style="margin:6px 0 0; font-family:Newsreader,serif; font-weight:400; font-size:26px; line-height:1.2">{{s.t}}</h3>
+        <p style="margin:10px 0 0; font-size:15px; color:var(--muted); text-wrap:pretty">{{s.d}}</p>
+      </li>
+    </sc-for>
+  </ol>
+  <div style="margin-top:clamp(40px,5cqi,64px); display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:0 48px">
+    <sc-for list="{{tools}}" as="t" hint-placeholder-count="5">
+      <div style="padding:14px 0; border-top:1px solid var(--border); font-size:15px"><strong style="font-weight:600">{{t.t}}.</strong> <span style="color:var(--muted)">{{t.d}}</span></div>
+    </sc-for>
+    <div style="padding:14px 0; border-top:1px solid var(--border); font-size:15px"><strong style="font-weight:600; color:var(--accent)">Certified.</strong> <span style="color:var(--muted)">Anthropic Claude Certified Architect – Foundations, 2026.</span></div>
+  </div>
+</section>
+
+<section style="max-width:1280px; margin:0 auto; padding:clamp(80px,10cqi,144px) clamp(20px,5.5cqi,80px) 0">
+  <h2 style="margin:0 0 clamp(28px,3cqi,40px); font-family:Newsreader,serif; font-weight:400; font-size:clamp(32px,3.4cqi,48px); letter-spacing:-0.015em; line-height:1.1">Stack</h2>
+  <sc-for list="{{skills}}" as="s" hint-placeholder-count="8">
+    <div style="display:flex; flex-wrap:wrap; gap:2px clamp(24px,4cqi,64px); padding:14px 0; border-top:1px solid var(--border); font-size:15px">
+      <span style="flex:0 0 220px; font-weight:600">{{s.cat}}</span>
+      <span style="flex:1 1 420px; color:var(--muted)">{{s.items}}</span>
+    </div>
+  </sc-for>
+</section>
+
+<section style="max-width:1280px; margin:0 auto; padding:clamp(80px,10cqi,144px) clamp(20px,5.5cqi,80px) 0">
+  <h2 style="margin:0 0 clamp(28px,3cqi,40px); font-family:Newsreader,serif; font-weight:400; font-size:clamp(32px,3.4cqi,48px); letter-spacing:-0.015em; line-height:1.1">Achievements &amp; certifications</h2>
+  <ul style="list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:0 48px">
+    <sc-for list="{{achievements}}" as="a" hint-placeholder-count="8">
+      <li style="display:flex; justify-content:space-between; gap:16px; padding:14px 0; border-top:1px solid var(--border); font-size:15px">
+        <span><strong style="font-weight:600">{{a.t}}</strong><br><span style="color:var(--muted)">{{a.m}}</span></span>
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted); flex:none; padding-top:2px">{{a.y}}</span>
+      </li>
+    </sc-for>
+  </ul>
+</section>
+
+<section id="about" style="max-width:1280px; margin:0 auto; padding:clamp(80px,10cqi,144px) clamp(20px,5.5cqi,80px) 0">
+  <div style="display:flex; flex-wrap:wrap; gap:clamp(32px,6cqi,96px); align-items:flex-start">
+    <div style="flex:0 1 320px; min-width:240px; position:relative; aspect-ratio:4/5; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(135deg,var(--ph1) 0 10px,var(--ph2) 10px 20px)">
+      <span style="font:12px/1.5 'IBM Plex Mono',monospace; color:var(--muted)">Portrait · portrait.jpg</span>
+      <img src="portrait.jpg" alt="Sayeef Mahmud" onError="{{hideImg}}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover">
+    </div>
+    <div style="flex:1 1 420px; max-width:640px">
+      <h2 style="margin:0; font-family:Newsreader,serif; font-weight:400; font-size:clamp(32px,3.4cqi,48px); letter-spacing:-0.015em; line-height:1.1">About</h2>
+      <p style="margin:20px 0 0; font-size:18px; text-wrap:pretty">I studied Computer Science and Engineering at RUET, where most of my free time went into competitive programming and, eventually, the ICPC World Finals. The habits carried over to production work: read the problem carefully, think about edge cases, and test before trusting anything.</p>
+      <p style="margin:16px 0 0; font-size:18px; color:var(--muted); text-wrap:pretty">Placeholder: one or two personal sentences, e.g. what you do away from the keyboard.</p>
+      <dl style="margin:28px 0 0; display:grid; grid-template-columns:110px 1fr; gap:10px 16px; font-size:15px">
+        <dt style="color:var(--muted)">Based in</dt><dd style="margin:0">Dhaka, Bangladesh</dd>
+        <dt style="color:var(--muted)">Work</dt><dd style="margin:0">Associate Software Engineer, Cefalo</dd>
+        <dt style="color:var(--muted)">Education</dt><dd style="margin:0">BSc in Computer Science &amp; Engineering, RUET</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="max-width:1280px; margin:0 auto; padding:clamp(96px,12cqi,176px) clamp(20px,5.5cqi,80px) clamp(64px,8cqi,96px)">
+  <h2 style="margin:0; font-family:Newsreader,serif; font-weight:400; font-size:clamp(38px,5cqi,72px); letter-spacing:-0.02em; line-height:1.06; max-width:14em; text-wrap:balance">Hiring, or building something? I'd like to hear about it.</h2>
+  <a href="#" style="display:inline-block; margin-top:28px; font-family:Newsreader,serif; font-size:clamp(24px,2.4cqi,34px); color:var(--accent); text-decoration:underline; text-underline-offset:8px; text-decoration-thickness:1px; overflow-wrap:anywhere" style-hover="text-decoration-thickness:2px; color:var(--accent)">{{email}}</a>
+  <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:32px">
+    <a href="#" style="height:44px; padding:0 18px; border-radius:8px; border:1px solid var(--border2); display:flex; align-items:center; font-weight:500; font-size:15px; text-decoration:none" style-hover="border-color:var(--fg)">LinkedIn ↗</a>
+    <a href="#" style="height:44px; padding:0 18px; border-radius:8px; border:1px solid var(--border2); display:flex; align-items:center; font-weight:500; font-size:15px; text-decoration:none" style-hover="border-color:var(--fg)">GitHub ↗</a>
+    <a href="#" style="height:44px; padding:0 18px; border-radius:8px; border:1px solid var(--border2); display:flex; align-items:center; font-weight:500; font-size:15px; text-decoration:none" style-hover="border-color:var(--fg)">Resume (PDF) ↓</a>
+  </div>
+  <footer style="margin-top:clamp(80px,10cqi,128px); padding-top:24px; border-top:1px solid var(--border); display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; font-size:14px; color:var(--muted)">
+    <span>© 2026 Sayeef Mahmud · Dhaka</span>
+    <span style="display:flex; gap:20px"><a href="#" style="text-decoration:none">Codeforces</a><a href="#" style="text-decoration:none">CodeChef</a><a href="#" style="text-decoration:none">LinkedIn</a><a href="#" style="text-decoration:none">GitHub</a></span>
+  </footer>
+</section>
+
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;mobile&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;menuOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;only&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;all&quot;,&quot;top&quot;],&quot;default&quot;:&quot;all&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;heroPhoto&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;none&quot;,&quot;side&quot;,&quot;byline&quot;,&quot;facts&quot;],&quot;default&quot;:&quot;side&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { c: null };
+  componentDidMount() {
+    import(new URL('content.js', document.baseURI).href).then(m => this.setState({ c: m.prep(m.default) })).catch(e => console.error(e));
+  }
+  renderVals() {
+    const m = !!this.props.mobile;
+    const c = this.state.c || { proof: [], projects: [], more: [], experience: [], earlier: [], steps: [], tools: [], skills: [], achievements: [], big: [], cs: { meta: [], stack: [], toc: [], features: [], decisions: [], challenges: [], results: [], next: [], gallery: [], nextProject: {} } };
+    const hp = this.props.heroPhoto ?? 'side';
+    return { ...c, mobile: m, desktop: !m, sideDesk: hp === 'side' && !m, sideMobile: hp === 'side' && m, byline: hp === 'byline', noByline: hp !== 'byline', inProof: hp === 'facts', menuOpen: !!this.props.menuOpen, full: this.props.only !== 'top', hideImg: e => { e.currentTarget.style.display = 'none'; } };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+/* Design tokens: sayeefmahmud.com (Direction A, Clean & Minimal).
+   Light is the default; dark applies with <html class="dark">. */
+:root {
+  --bg: #FAFAF8;
+  --surface: #FFFFFF;
+  --sunk: #F0F0EC;
+  --fg: #17181B;
+  --muted: #5E6169;
+  --border: #E4E4DF;
+  --border2: #C9C9C3;
+  --accent: #2A55C9;
+  --accent-hover: #2148AE;
+  --accent-active: #1B3E99;
+  --accent-fg: #FFFFFF;
+  --ok: #1E7A4C;
+  --warn: #A86500;
+  --info: #2A55C9;
+  --ph1: #E9E9E4;          /* placeholder stripe A */
+  --ph2: #F1F1ED;          /* placeholder stripe B */
+  --device: #1D1E21;       /* phone bezel */
+  --code: #17181B;
+  --code-fg: #E7E7E3;
+
+  --font-serif: 'Newsreader', Georgia, serif;
+  --font-sans: 'Public Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --radius-photo: 4px;
+  --radius-control: 8px;
+  --radius-frame: 14px;
+  --shadow-shot: 0 1px 2px rgb(0 0 0 / .06), 0 12px 32px -12px rgb(0 0 0 / .18);
+  --shadow-device: 0 12px 32px -12px rgb(0 0 0 / .25);
+
+  --page-pad: clamp(20px, 5.5vw, 80px);
+  --section-gap: clamp(80px, 10vw, 144px);
+  --container: 1280px;     /* incl. side padding → 1120px content */
+  --measure: 680px;        /* article / long text */
+}
+.dark {
+  --bg: #111214;
+  --surface: #1A1B1E;
+  --sunk: #1C1D21;
+  --fg: #ECECE9;
+  --muted: #A1A4AB;
+  --border: #2A2C30;
+  --border2: #45474D;
+  --accent: #93ADF7;
+  --accent-hover: #B0C3FA;
+  --accent-active: #7C9AF2;
+  --accent-fg: #0E1222;
+  --ok: #6CCB94;
+  --warn: #E3B45E;
+  --info: #93ADF7;
+  --ph1: #1F2024;
+  --ph2: #25262B;
+  --device: #3A3C42;
+  --code: #1A1B1E;
+  --code-fg: #DADAD6;
+}
+html { background: var(--bg); color: var(--fg); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 100ms !important; animation: none !important; transform: none !important; }
+}

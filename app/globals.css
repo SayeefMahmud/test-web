@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+/* Dark mode is class-based: <html class="dark">, set before first paint by the inline script in app/layout.tsx. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ───────────────────────── Design tokens (docs/handoff/tokens/tokens.css) ───────────────────────── */
+:root {
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --sunk: #f0f0ec;
+  --fg: #17181b;
+  --muted: #5e6169;
+  --border: #e4e4df;
+  --border2: #c9c9c3;
+  --accent: #2a55c9;
+  --accent-hover: #2148ae;
+  --accent-active: #1b3e99;
+  --accent-fg: #ffffff;
+  --ok: #1e7a4c;
+  --warn: #a86500;
+  --info: #2a55c9;
+  --ph1: #e9e9e4; /* placeholder stripe A */
+  --ph2: #f1f1ed; /* placeholder stripe B */
+  --device: #1d1e21; /* phone bezel */
+  --code: #17181b;
+  --code-fg: #e7e7e3;
+
+  --page-pad: clamp(20px, 5.5vw, 80px);
+  --section-gap: clamp(80px, 10vw, 144px);
+  --container: 1280px; /* incl. side padding → 1120px content at 1440 */
+  --measure: 680px; /* article / long text */
+
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #111214;
+  --surface: #1a1b1e;
+  --sunk: #1c1d21;
+  --fg: #ecece9;
+  --muted: #a1a4ab;
+  --border: #2a2c30;
+  --border2: #45474d;
+  --accent: #93adf7;
+  --accent-hover: #b0c3fa;
+  --accent-active: #7c9af2;
+  --accent-fg: #0e1222;
+  --ok: #6ccb94;
+  --warn: #e3b45e;
+  --info: #93adf7;
+  --ph1: #1f2024;
+  --ph2: #25262b;
+  --device: #3a3c42;
+  --code: #1a1b1e;
+  --code-fg: #dadad6;
+
+  color-scheme: dark;
+}
+
+/* ───────────────────────── Tailwind theme mapping (docs/handoff/tokens/tailwind-theme.css) ───────────────────────── */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-sunk: var(--sunk);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-border2: var(--border2);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-active: var(--accent-active);
+  --color-accent-fg: var(--accent-fg);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-info: var(--info);
+  --color-device: var(--device);
+  --color-code: var(--code);
+  --color-code-fg: var(--code-fg);
+  --color-ph1: var(--ph1);
+  --color-ph2: var(--ph2);
+
+  /* next/font CSS variables are set on <html> in app/layout.tsx */
+  --font-serif: var(--font-newsreader), Georgia, serif;
+  --font-sans: var(--font-public-sans), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  --radius-photo: 4px;
+  --radius-control: 8px;
+  --radius-frame: 14px;
+  --shadow-shot: 0 1px 2px rgb(0 0 0 / 0.06), 0 12px 32px -12px rgb(0 0 0 / 0.18);
+  --shadow-device: 0 12px 32px -12px rgb(0 0 0 / 0.25);
+
+  --ease-lift: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* type scale: [size, line-height, tracking] */
+  --text-display: clamp(38px, 5.4vw, 76px);
+  --text-display--line-height: 1.06;
+  --text-display--letter-spacing: -0.02em;
+  --text-h1: clamp(32px, 3.4vw, 48px);
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.015em;
+  --text-project: clamp(30px, 2.8vw, 40px);
+  --text-project--line-height: 1.1;
+  --text-project--letter-spacing: -0.015em;
+  --text-cs-title: clamp(48px, 7vw, 104px);
+  --text-cs-title--line-height: 1;
+  --text-cs-title--letter-spacing: -0.025em;
+  --text-cs-summary: clamp(21px, 2vw, 28px);
+  --text-cs-summary--line-height: 1.35;
+  --text-h2: 34px;
+  --text-h2--line-height: 1.15;
+  --text-h3: 19px;
+  --text-h3--line-height: 1.4;
+  --text-lead: clamp(17px, 1.35vw, 19px);
+  --text-lead--line-height: 1.6;
+  --text-body: 16px;
+  --text-body--line-height: 1.6;
+  --text-ui: 15px;
+  --text-ui--line-height: 1.5;
+  --text-small: 14px;
+  --text-small--line-height: 1.5;
+  --text-meta: 13px;
+  --text-meta--line-height: 1.6;
+  --text-label: 12px;
+  --text-label--line-height: 1.6;
+}
+
+/* ───────────────────────── Base ───────────────────────── */
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-size: 16px;
+    line-height: 1.6;
+    /* Theme switch: background and text colours cross-fade over 200ms. */
+    transition:
+      background-color 200ms ease-out,
+      color 200ms ease-out;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-fg);
+  }
+}
+
+/* Placeholder stripes for images that are not provided yet. */
+@utility bg-stripes {
+  background: repeating-linear-gradient(135deg, var(--ph1) 0 10px, var(--ph2) 10px 20px);
+}
+
+/* Reduced motion: no transforms, only colour/opacity changes of 100ms or less. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 100ms !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}
