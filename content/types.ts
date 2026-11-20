@@ -117,7 +117,8 @@ export type Paragraph = {
 };
 
 export type Action = Link & {
-  variant: "primary" | "secondary" | "text";
+  /** `outline`: fg border that inverts on hover (header "Resume ↓"). */
+  variant: "primary" | "secondary" | "outline" | "text";
   /** Trailing glyph: ↗ external, → internal, ↓ download. */
   arrow?: "↗" | "→" | "↓";
 };

@@ -40,13 +40,15 @@ function subscribe(onChange: () => void) {
 
 type ThemeToggleProps = {
   className?: string;
+  /** Icon size: 14px on desktop (default), 16px on mobile. */
+  iconClassName?: string;
 };
 
 /**
  * Theme toggle: a 14px circle with a 1.5px border, left half filled.
  * Size and border come from the caller (36×36 bordered on desktop, 44×44 borderless on mobile).
  */
-export function ThemeToggle({ className = "" }: ThemeToggleProps) {
+export function ThemeToggle({ className = "", iconClassName = "size-3.5" }: ThemeToggleProps) {
   const theme = useSyncExternalStore<Theme>(subscribe, readTheme, () => "light");
   const isDark = theme === "dark";
 
@@ -76,7 +78,7 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
     >
       <span
         aria-hidden="true"
-        className="block size-3.5 rounded-full border-[1.5px] border-current"
+        className={`block rounded-full border-[1.5px] border-current ${iconClassName}`}
         style={{ background: "linear-gradient(90deg, currentColor 50%, transparent 50%)" }}
       />
     </button>

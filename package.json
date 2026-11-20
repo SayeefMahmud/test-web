@@ -16,7 +16,8 @@
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "remark-frontmatter": "^5.0.0",
-    "remark-mdx-frontmatter": "^6.0.0"
+    "remark-mdx-frontmatter": "^6.0.0",
+    "shiki": "^4.6.0"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "4.3.3",

@@ -29,6 +29,8 @@ export const site = {
   /** Set to "/resume.pdf" once `public/resume.pdf` exists; all resume buttons stay hidden until then. */
   resumeUrl: undefined as string | undefined,
   copyrightYear: "2026",
+  /** 4:5 photo used in Hero and About. Remove to show the striped placeholder. */
+  portrait: "/images/portrait.jpg" as string | undefined,
 } as const;
 
 export const social = {
@@ -63,7 +65,7 @@ export const labels = {
 
 export const header = {
   /** Links derive from `nav` labels in `content/home.ts`; this is only the resume button. */
-  resume: resume(labels.resume, "secondary"),
+  resume: resume(labels.resume, "outline"),
 };
 
 export const mobileMenu = {

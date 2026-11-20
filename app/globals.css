@@ -27,7 +27,7 @@
 
   --page-pad: clamp(20px, 5.5vw, 80px);
   --section-gap: clamp(80px, 10vw, 144px);
-  --container: 1280px; /* incl. side padding → 1120px content at 1440 */
+  --container: 1280px; /* content width; side padding is added outside it (content-box) */
   --measure: 680px; /* article / long text */
 
   color-scheme: light;
@@ -92,6 +92,23 @@
 
   --ease-lift: cubic-bezier(0.2, 0.7, 0.2, 1);
 
+  /* Mobile menu sheet fades in over 200ms. */
+  --animate-fade-in: fade-in 200ms ease-out;
+  /* Hero load: opacity 0→1, 8px rise, 500ms; stagger via animation-delay. */
+  --animate-rise-in: rise-in 500ms ease-out both;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+
   /* type scale: [size, line-height, tracking] */
   --text-display: clamp(38px, 5.4vw, 76px);
   --text-display--line-height: 1.06;
@@ -116,9 +133,11 @@
   --text-body: 16px;
   --text-body--line-height: 1.6;
   --text-ui: 15px;
-  --text-ui--line-height: 1.5;
+  /* ui / small: 1.6, not the token file's 1.5 — the design sets only font-size inline and
+     inherits the body's 1.6 line height (inline styles win). */
+  --text-ui--line-height: 1.6;
   --text-small: 14px;
-  --text-small--line-height: 1.5;
+  --text-small--line-height: 1.6;
   --text-meta: 13px;
   --text-meta--line-height: 1.6;
   --text-label: 12px;
@@ -127,6 +146,15 @@
 
 /* ───────────────────────── Base ───────────────────────── */
 @layer base {
+  /* The design files have no border-box reset, so sizes are content-box: a 48px button with a
+     1px border is 50px tall, and the 1280px container excludes its side padding (1280px of
+     content at 1440). Elements the design marks border-box use Tailwind's `box-border`. */
+  *,
+  ::before,
+  ::after {
+    box-sizing: content-box;
+  }
+
   html {
     background: var(--bg);
     color: var(--fg);
@@ -173,4 +201,20 @@
     animation: none !important;
     transform: none !important;
   }
+}
+
+/* Code blocks (Shiki css-variables theme, see components/case-study.tsx). The design shows code
+   in a single colour, so every token maps to --code-fg; tint individual tokens here if wanted. */
+.code-block {
+  --shiki-foreground: var(--code-fg);
+  --shiki-background: var(--code);
+  --shiki-token-constant: var(--code-fg);
+  --shiki-token-string: var(--code-fg);
+  --shiki-token-string-expression: var(--code-fg);
+  --shiki-token-comment: var(--code-fg);
+  --shiki-token-keyword: var(--code-fg);
+  --shiki-token-parameter: var(--code-fg);
+  --shiki-token-function: var(--code-fg);
+  --shiki-token-punctuation: var(--code-fg);
+  --shiki-token-link: var(--code-fg);
 }
