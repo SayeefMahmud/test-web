@@ -23,6 +23,7 @@ import {
   Subheading,
 } from "./blocks";
 import { Footer } from "./footer";
+import { IconLinks } from "./icon-links";
 import { Section, SectionHeader } from "./layout";
 import { Portrait } from "./media";
 import { ProjectList } from "./project-row";
@@ -57,8 +58,16 @@ function Hero({ section }: SectionComponentProps) {
           >
             {hero.lead}
           </p>
-          <div style={rise(3)} className="animate-rise-in">
-            <ActionRow actions={hero.actions} className="mt-9" />
+          <div
+            style={rise(3)}
+            className="mt-9 flex animate-rise-in flex-wrap items-center gap-x-3 gap-y-2"
+          >
+            <ActionRow actions={hero.actions} size="md" />
+            {/* Profile icons; a hairline separates them from the button when there is one. */}
+            <IconLinks
+              links={hero.profiles}
+              className={hero.actions.length > 0 ? "border-l border-border pl-3" : undefined}
+            />
           </div>
         </div>
         {/* One image for both layouts: 148px above the text below md, 340px column on the right from md. */}
@@ -177,9 +186,17 @@ function About({ section }: SectionComponentProps) {
 function Contact({ section }: SectionComponentProps) {
   return (
     <Section id={section.id} spacing="contact">
-      {section.title && <SectionHeader title={section.title} size="contact" />}
-      <EmailLink email={site.email} />
-      <ActionRow actions={contact.actions} size="md" className="mt-8" />
+      {/* Headline left, email + links right on wide screens; stacked below lg. */}
+      {/* last-baseline: the right column's last line sits on the headline's last baseline. */}
+      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-baseline-last lg:gap-16">
+        {section.title && (
+          <SectionHeader title={section.title} size="contact" className="lg:mb-0!" />
+        )}
+        <div className="lg:col-start-2 lg:flex lg:flex-col lg:items-end">
+          <EmailLink email={site.email} />
+          <ActionRow actions={contact.actions} size="contact" className="mt-8 lg:mt-5" />
+        </div>
+      </div>
       <Footer />
     </Section>
   );

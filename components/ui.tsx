@@ -109,6 +109,8 @@ const buttonSizes = {
   lg: "h-12 px-[22px] gap-2 text-body",
   /** Contact, case-study hero: 44px, 18px padding, 15px. */
   md: "h-11 px-[18px] gap-1 text-ui",
+  /** Contact: md on mobile (44px touch target); sm from lg, where it sits beside the headline. */
+  contact: "h-11 px-[18px] gap-1 text-ui lg:h-9 lg:px-3.5 lg:text-small",
   /** Header resume: 36px, 14px padding, 14px. */
   sm: "h-9 px-3.5 gap-2 text-small",
   /** Mobile-menu resume: 52px, full width, centred. */
@@ -237,13 +239,21 @@ export function MetaList({
   className?: string;
 }) {
   return (
-    <dl className={cx("grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-x-8", className)}>
+    <dl
+      className={cx(
+        "grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-x-8",
+        // Hero from lg: one rule across the row, content-width items, equal gaps between them.
+        variant === "hero" &&
+          "lg:flex lg:flex-wrap lg:justify-between lg:gap-x-12 lg:border-t lg:border-border lg:pt-3.5",
+        className,
+      )}
+    >
       {items.map((f) => (
         <div
           key={f.label}
           className={cx(
             "border-t border-border pt-3.5",
-            variant === "hero" ? "mb-4" : "pb-3.5",
+            variant === "hero" ? "mb-4 lg:border-t-0 lg:pt-0" : "pb-3.5",
           )}
         >
           <dt className="font-mono text-label text-muted">{f.label}</dt>

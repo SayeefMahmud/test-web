@@ -9,6 +9,7 @@
 import type {
   Achievement,
   Action,
+  IconLink,
   EarlierEntry,
   ExperienceEntry,
   Fact,
@@ -91,11 +92,18 @@ export const hero = {
   lead: "I've spent more than five years in competitive programming. Now I build production software at Cefalo, mostly ASP.NET Core and Next.js. I work across the whole stack, from database design and APIs to frontends and deployment, and I enjoy the hard problems most. Outside work I ship my own apps for desktop, mobile and the web.",
   portraitAlt: "Sayeef Mahmud",
   actions: [
-    { label: "View projects", href: "#projects", variant: "primary" },
-    { label: "Contact", href: "#contact", variant: "secondary" },
+    { label: "View projects", href: "#projects", variant: "secondary" },
+    // Replaced by the profile icons below (owner, 2026-11-21).
+    // { label: "Contact", href: "#contact", variant: "secondary" },
     // Resume download disabled for now (owner, 2026-11-21); uncomment to restore.
     // resume("Resume (PDF)", "text"),
   ] satisfies Action[],
+  /** Icon links after the hero button. Remove an entry to hide its icon. */
+  profiles: [
+    { ...social.github, icon: "github" },
+    { ...social.linkedin, icon: "linkedin" },
+    { label: "Email", href: `mailto:${site.email}`, icon: "email" },
+  ] satisfies IconLink[],
   facts: [
     { label: "Work", value: "Associate Software Engineer, Cefalo" },
     { label: "ICPC", value: "World Finalist" },
@@ -418,8 +426,9 @@ export const about = {
 
 export const contact = {
   actions: [
-    { ...social.linkedin, variant: "secondary", arrow: "↗" },
-    { ...social.github, variant: "secondary", arrow: "↗" },
+    // Profile links live in the footer only, so Contact shows just the email (owner, 2026-11-21).
+    // { ...social.linkedin, variant: "secondary", arrow: "↗" },
+    // { ...social.github, variant: "secondary", arrow: "↗" },
     // Resume download disabled for now (owner, 2026-11-21); uncomment to restore.
     // resume("Resume (PDF)", "secondary"),
   ] satisfies Action[],

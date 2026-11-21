@@ -32,7 +32,7 @@ const sectionSpacing = {
   projects: "pt-[clamp(40px,5vw,72px)] border-t border-border",
   /** More projects on /projects (follows the page title). */
   compact: "pt-[clamp(64px,8vw,112px)]",
-  contact: "pt-[var(--section-gap)] pb-[clamp(64px,8vw,96px)]",
+  contact: "pt-[var(--section-gap)] pb-[clamp(32px,4vw,48px)]",
   /** Case-study hero. */
   caseStudy: "pt-[clamp(40px,6vw,80px)]",
   caseStudyMedia: "pt-[clamp(40px,5vw,72px)]",
@@ -95,7 +95,7 @@ export function SectionHeader({
         "font-serif font-normal",
         size === "h1"
           ? "text-h1"
-          : "max-w-[14em] text-[clamp(38px,5vw,72px)] leading-[1.06] tracking-[-0.02em] text-balance",
+          : "max-w-[20em] text-h1 text-balance",
       )}
     >
       {title}

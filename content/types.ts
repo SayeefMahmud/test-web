@@ -122,6 +122,11 @@ export type Paragraph = {
   muted?: boolean;
 };
 
+/** Icon-only profile link (hero). `label` is the accessible name. */
+export type IconLink = Link & {
+  icon: "github" | "linkedin" | "email";
+};
+
 export type Action = Link & {
   /** `outline`: fg border that inverts on hover (header "Resume ↓"). */
   variant: "primary" | "secondary" | "outline" | "text";

@@ -13,7 +13,7 @@ export function Footer({ variant = "home" }: { variant?: "home" | "caseStudy" })
     <footer
       className={cx(
         "flex flex-wrap justify-between gap-3 border-t border-border pt-6 text-small text-muted",
-        home ? "mt-[clamp(80px,10vw,128px)]" : "mt-16",
+        home ? "mt-[clamp(40px,5vw,64px)]" : "mt-16",
       )}
     >
       <span>{home ? footer.copyright : footer.copyrightShort}</span>
