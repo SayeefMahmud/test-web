@@ -10,7 +10,7 @@ Target: pixel-identical to the reference screenshots at 1440px and 390px, light 
 |---|---|
 | Framework | Next.js (App Router) + TypeScript, fully static |
 | Styling | Tailwind CSS v4, design tokens as CSS variables (`tokens.css` + `tailwind-theme.css`) |
-| Fonts | `next/font/google`: Newsreader (opsz axis, normal + italic 400), Public Sans 400/500/600, IBM Plex Mono 400/500 |
+| Fonts | `next/font/google`: Newsreader (opsz axis, normal 400; italic dropped in Phase 5 — unused), Public Sans 400/500/600, IBM Plex Mono 400/500 |
 | Theme | Light default, `.dark` on `<html>`, no-flash inline init script (localStorage → `prefers-color-scheme`) |
 | Case studies | MDX per project in `content/projects/<slug>.mdx` |
 | Code highlighting | Shiki at build time, theme matched to `--code` / `--code-fg` |
@@ -45,7 +45,17 @@ Adding, removing or reordering anything should be a content/config edit, not a l
 
 ## Current state (updated 2026-11-21) — read this first in a new session
 
-**Done:** Phases 1–4. **Next:** Phase 5 (fidelity, accessibility, performance).
+**Done:** Phases 1–5. **Next:** Phase 6 (deploy to Vercel).
+
+- Phase 5 status (2026-11-21):
+  - QA tooling (all run against a production build on :3100 — `npm run build && npm run qa:serve`):
+    - `npm run qa:screenshots` → `qa/current/01…07.png` (gitignored), same widths / pixel ratios as `docs/handoff/screenshots/` (1440@1x; 390@2x for 03/05/07; 04/05 clipped to the reference height).
+    - `npm run qa:design` (needs `npm run qa:design-board` on :3200) — renders the design board `Direction-A.dc.html`, matches every text node on our pages to the design by text and reports position jumps, x/size, font and colour differences per artboard. Far more precise than pixel diffs, which hidden links throw off. Current output: only intended differences (below).
+    - `npm run qa:a11y` — axe-core (WCAG 2.2 AA incl. contrast) on /, /projects, case study, 404 at 1440/390 × light/dark; one H1, no skipped heading levels, named links, no vague link text, and a real hit-area probe (`elementFromPoint` 21px from the centre) for ≥44px mobile targets. Passes.
+  - Fixes: phone/landscape frame placeholder was 24px larger than its frame (global content-box + `size-full` + padding; `p-4` beat `p-3`) → `box-border` + `p-3!` (also the portrait fallback); TOC starts with no active item (as in the design) until an H2 passes the line; project media link is now `aria-hidden` + `tabIndex={-1}` (duplicate of the "Case study" link; fixed axe label-content-name-mismatch); `hit-area` utility (globals.css, invisible ::after ≥44×44) on TextLink, header wordmark, contact email, footer email; `turbopack.root` pinned (a stray lockfile in the home folder was being detected).
+  - Performance: dropped Newsreader italic (unused anywhere in the design; was ~140 KB preloaded on every page) → fonts 318 → 174 KB, mobile LCP ~3.9 s → ~3.0 s (Lighthouse simulated slow 4G). Lighthouse: accessibility, best practices, SEO 100 on every page; performance mobile 80–94, desktop 78–100. Local TBT is noisy (an "Unattributable" browser task from machine load, 0–9 s between identical runs) — re-measure on the Vercel deployment.
+  - Intended differences from the screenshots: hidden resume buttons and project links (no URLs yet — content below shifts up by their height and project text re-centres), the real portrait, the owner's email, and the → ↗ ← fallback glyph.
+  - Open design question for the owner: the case-study header wordmark has no `letter-spacing:-0.01em` in `A-CaseStudy.dc.html` while Home has it; kept one shared header (otherwise the name shifts 3px between pages). The design's mobile-menu × renders in Arial only because the button sets no font; we use Public Sans.
 
 - Phase 4 status (2026-11-21):
   - `/` (`app/page.tsx`) maps `homeSections` → `homeSectionComponents` in `components/home-sections.tsx` (one component per registry name; each gets its entry and reads copy from `content/`). Hero: one `Portrait` element for both layouts (`order-first` 148px below md, 340px column from md, `preload`), page-load `animate-rise-in` with 60ms stagger on meta / H1 / lead / actions.
@@ -113,7 +123,7 @@ Adding, removing or reordering anything should be a content/config edit, not a l
 - `/projects` — all projects, reusing `ProjectRow`.
 - Metadata: titles/descriptions, Open Graph image, `sitemap.ts`, `robots.ts`, favicon. `/resume.pdf` served from `public/` once provided.
 
-## Phase 5 — Fidelity, accessibility, performance
+## Phase 5 — Fidelity, accessibility, performance ✅ (done 2026-11-21)
 - Playwright script capturing `/` and a case study at 1440 and 390, light + dark, and mobile menu open; compare to screenshots 01–07 and fix deltas.
 - Accessibility: one H1 per page, section titles are H2 (styled as h1 token), project names H3, ≥ 44px mobile hit targets, descriptive link text, AA contrast in both themes.
 - Lighthouse pass (performance, a11y, SEO).

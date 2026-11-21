@@ -199,7 +199,7 @@ export function EmailLink({ email, className }: { email: string; className?: str
     <a
       href={`mailto:${email}`}
       className={cx(
-        "inline-block font-serif text-[clamp(24px,2.4vw,34px)] text-accent [overflow-wrap:anywhere] underline decoration-1 underline-offset-8 transition-[text-decoration-thickness] duration-150 ease-out hover:decoration-2",
+        "hit-area inline-block font-serif text-[clamp(24px,2.4vw,34px)] text-accent [overflow-wrap:anywhere] underline decoration-1 underline-offset-8 transition-[text-decoration-thickness] duration-150 ease-out hover:decoration-2",
         className,
       )}
     >

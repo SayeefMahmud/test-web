@@ -30,7 +30,7 @@ export function Footer({ variant = "home" }: { variant?: "home" | "caseStudy" })
             ))}
         </ul>
       ) : (
-        <SmartLink href={`mailto:${site.email}`} className="no-underline hover:text-fg">
+        <SmartLink href={`mailto:${site.email}`} className="hit-area no-underline hover:text-fg">
           {site.email}
         </SmartLink>
       )}

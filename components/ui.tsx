@@ -73,7 +73,7 @@ export function TextLink({
   return (
     <SmartLink
       className={cx(
-        "transition-[color,text-decoration-color] duration-150 ease-out",
+        "hit-area transition-[color,text-decoration-color] duration-150 ease-out",
         textLinkVariants[variant],
         className,
       )}

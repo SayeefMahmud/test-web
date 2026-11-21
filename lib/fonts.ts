@@ -1,9 +1,13 @@
 import { IBM_Plex_Mono, Newsreader, Public_Sans } from "next/font/google";
 
-/** Headings, display, wordmark. Variable font with optical sizes (opsz 6–72). */
+/**
+ * Headings, display, wordmark. Variable font with optical sizes (opsz 6–72).
+ * Normal style only: the design never sets italic, and the italic file (~140 KB)
+ * would otherwise be preloaded on every page. Add "italic" here if a design needs it.
+ */
 export const serif = Newsreader({
   subsets: ["latin"],
-  style: ["normal", "italic"],
+  style: ["normal"],
   axes: ["opsz"],
   display: "swap",
   variable: "--font-newsreader",

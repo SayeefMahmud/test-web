@@ -28,7 +28,7 @@ export function Header({ current, mobileThemeToggle = true }: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-bg">
       <Container className="flex h-16 items-center justify-between gap-6">
-        <NextLink href="/" className="font-serif text-[21px] tracking-[-0.01em] no-underline">
+        <NextLink href="/" className="hit-area font-serif text-[21px] tracking-[-0.01em] no-underline">
           {site.name}
         </NextLink>
 

@@ -10,10 +10,11 @@ const ACTIVE_LINE = 120;
 
 /**
  * Sticky "On this page" nav (md and up). The current section is the last H2 that has
- * scrolled past `ACTIVE_LINE`; its link gets the fg left border.
+ * scrolled past `ACTIVE_LINE`; its link gets the fg left border. Above the first H2
+ * nothing is current (as in the design).
  */
 export function Toc({ entries }: { entries: TocEntry[] }) {
-  const [active, setActive] = useState(entries[0]?.id);
+  const [active, setActive] = useState<string>();
 
   useEffect(() => {
     const headings = entries
@@ -24,7 +25,7 @@ export function Toc({ entries }: { entries: TocEntry[] }) {
     let frame = 0;
     const update = () => {
       frame = 0;
-      let current = headings[0].id;
+      let current: string | undefined;
       for (const h of headings) {
         if (h.getBoundingClientRect().top <= ACTIVE_LINE) current = h.id;
       }

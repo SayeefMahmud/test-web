@@ -192,6 +192,20 @@
   background: repeating-linear-gradient(135deg, var(--ph1) 0 10px, var(--ph2) 10px 20px);
 }
 
+/*
+ * Touch target: grows the clickable area of a small link to at least 44×44px
+ * (centred, invisible) without changing layout. Larger elements are unaffected.
+ */
+@utility hit-area {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset-block: min(0px, calc(50% - 22px));
+    inset-inline: min(0px, calc(50% - 22px));
+  }
+}
+
 /* Reduced motion: no transforms, only colour/opacity changes of 100ms or less. */
 @media (prefers-reduced-motion: reduce) {
   *,

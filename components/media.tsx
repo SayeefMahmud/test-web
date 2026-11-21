@@ -133,8 +133,8 @@ export function DeviceFrame({
       <Screen
         shot={shot}
         sizes={sizes}
-        textClassName={phone ? "text-[11px] p-3" : "text-label p-3"}
-        className="size-full"
+        textClassName={phone ? "text-[11px] p-3!" : "text-label p-3!"}
+        className="box-border size-full"
       />
     </div>
   );
@@ -184,7 +184,7 @@ export function Portrait({
           className="bg-stripes object-cover"
         />
       ) : (
-        <Placeholder label={placeholderLabel} className="size-full" />
+        <Placeholder label={placeholderLabel} className="box-border size-full" />
       )}
     </div>
   );

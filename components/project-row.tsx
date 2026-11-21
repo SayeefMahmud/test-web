@@ -35,9 +35,12 @@ export function ProjectRow({ project: p, index, headingLevel: Heading = "h3" }: 
       )}
     >
       {caseStudy ? (
+        // Mouse shortcut only: the "Case study" text link below is the accessible route,
+        // so the media isn't a second tab stop with a mismatched name.
         <NextLink
           href={caseStudy}
-          aria-label={`${p.name} ${labels.caseStudyLink}`}
+          tabIndex={-1}
+          aria-hidden="true"
           className={cx(
             mediaPanel,
             "no-underline transition-transform duration-400 ease-lift hover:-translate-y-1",
