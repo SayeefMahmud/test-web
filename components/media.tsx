@@ -172,15 +172,18 @@ export function DeviceFrame({
 
   // Phone frames: 7px device-coloured bezel. The landscape frame sizes the screen (19:9)
   // rather than the outer box, so a 19:9 screenshot fits with no cropping.
+  // The portrait phone in a project row is ~60% of its desktop size below md, so its bezel
+  // and radius scale down with it (owner, 2026-11-22: 7px looked too thick on mobile).
   const phone = frame === "phone";
   return (
     <div
       className={cx(
-        "box-border overflow-hidden border-[7px] border-device shadow-device",
+        "box-border overflow-hidden border-device shadow-device",
+        phone && !hero ? "border-4 md:border-[7px]" : "border-[7px]",
         phone
           ? hero
             ? "mx-auto aspect-[9/19] h-[min(70vh,640px)] rounded-[28px]"
-            : "aspect-[9/19] h-full rounded-[28px]"
+            : "aspect-[9/19] h-full rounded-[18px] md:rounded-[28px]"
           : "w-full rounded-[24px]",
       )}
     >
