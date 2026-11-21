@@ -43,7 +43,15 @@ function Screen({
   if (shot.src) {
     return (
       <div className={cx("relative overflow-hidden", className)}>
-        <Image src={shot.src} alt={shot.label} fill sizes={sizes} className="object-cover" />
+        <Image
+          src={shot.src}
+          alt={shot.label}
+          fill
+          sizes={sizes}
+          quality={90}
+          className="object-cover"
+          style={shot.position ? { objectPosition: shot.position } : undefined}
+        />
       </div>
     );
   }
@@ -75,7 +83,7 @@ type DeviceFrameProps = {
   sizes?: string;
 };
 
-/** A screenshot drawn inside a browser, desktop window, portrait phone or landscape phone. */
+/** A screenshot drawn inside a browser, desktop window, portrait phone or landscape phone, or frameless (`app`). */
 export function DeviceFrame({
   frame,
   shot,
@@ -89,12 +97,14 @@ export function DeviceFrame({
     return (
       <div
         className={cx(
-          "flex w-full flex-col overflow-hidden bg-surface",
+          "flex flex-col overflow-hidden bg-surface",
           browser ? "rounded-control" : "rounded-[10px]",
           hero
             ? "shadow-[0_1px_2px_rgb(0_0_0/0.06),0_16px_40px_-16px_rgb(0_0_0/0.2)]"
             : "shadow-shot",
-          !hero && (browser ? "h-full" : "h-[86%]"),
+          // Browser: as wide as fits both the panel's width and its height (31px toolbar + 16:10 screen).
+          hero || !browser ? "w-full" : "w-[min(100cqw,calc((100cqh-31px)*1.6))]",
+          !hero && !browser && "h-[86%]",
         )}
       >
         <div
@@ -111,13 +121,39 @@ export function DeviceFrame({
           shot={shot}
           sizes={sizes}
           textClassName={hero ? "text-meta" : "text-label"}
-          className={hero ? "aspect-video p-0! leading-normal!" : "flex-1"}
+          // Browser screen is 16:10 (a 1440×900 viewport), so the screenshot fits uncropped.
+          className={
+            hero ? "aspect-video p-0! leading-normal!" : browser ? "aspect-[16/10]" : "flex-1"
+          }
         />
       </div>
     );
   }
 
-  // Phone frames: 7px device-coloured bezel.
+  // Frameless app window: the screenshot is the window. Sized from `shot.aspect` to fit the
+  // panel's content box both ways; drop-shadow follows the window's transparent corners.
+  if (frame === "app") {
+    const ratio = shot.aspect ?? 4 / 3;
+    return (
+      <div
+        className={cx("drop-shadow-shot", hero && "mx-auto h-[min(70vh,640px)] max-w-full")}
+        style={{
+          aspectRatio: ratio,
+          width: hero ? undefined : `min(100cqw, 100cqh * ${ratio})`,
+        }}
+      >
+        <Screen
+          shot={shot}
+          sizes={hero ? "1100px" : "(min-width: 768px) 520px, 80vw"}
+          textClassName="text-label p-3!"
+          className={cx("box-border size-full", !shot.src && "rounded-[10px]")}
+        />
+      </div>
+    );
+  }
+
+  // Phone frames: 7px device-coloured bezel. The landscape frame sizes the screen (19:9)
+  // rather than the outer box, so a 19:9 screenshot fits with no cropping.
   const phone = frame === "phone";
   return (
     <div
@@ -127,14 +163,14 @@ export function DeviceFrame({
           ? hero
             ? "mx-auto aspect-[9/19] h-[min(70vh,640px)] rounded-[28px]"
             : "aspect-[9/19] h-full rounded-[28px]"
-          : "aspect-[19/9] w-full rounded-[24px]",
+          : "w-full rounded-[24px]",
       )}
     >
       <Screen
         shot={shot}
         sizes={sizes}
         textClassName={phone ? "text-[11px] p-3!" : "text-label p-3!"}
-        className="box-border size-full"
+        className={cx("box-border", phone ? "size-full" : "aspect-[19/9] w-full")}
       />
     </div>
   );

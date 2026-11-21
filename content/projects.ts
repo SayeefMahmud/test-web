@@ -23,7 +23,10 @@ export const projects: Project[] = [
       { kind: "github", label: "GitHub", ctaLabel: "Source on GitHub" },
     ],
     frame: "browser",
-    shot: { label: "Screenshot: Watchlist dashboard, desktop browser" },
+    shot: {
+      label: "Screenshot: Watchlist dashboard, desktop browser",
+      src: "/images/projects/watchlist/home-trending.png",
+    },
     accent: "#B3352B",
   },
   {
@@ -38,8 +41,12 @@ export const projects: Project[] = [
     status: "macOS & Windows ready",
     statusKind: "live",
     links: [{ kind: "github", label: "GitHub" }],
-    frame: "window",
-    shot: { label: "Screenshot: Stash popup, macOS" },
+    frame: "app",
+    shot: {
+      label: "Screenshot: Stash popup, macOS",
+      src: "/images/projects/stash/popup.png",
+      aspect: 810 / 910,
+    },
     accent: "#1D6B66",
   },
   {
@@ -57,7 +64,10 @@ export const projects: Project[] = [
       { kind: "github", label: "GitHub" },
     ],
     frame: "land",
-    shot: { label: "Screenshot: Nebula Dash gameplay, landscape phone" },
+    shot: {
+      label: "Screenshot: Nebula Dash gameplay, landscape phone",
+      src: "/images/projects/nebula-dash/aurum-hud.png",
+    },
     accent: "#2E3480",
   },
   {
@@ -71,8 +81,12 @@ export const projects: Project[] = [
     status: "macOS & Windows ready",
     statusKind: "live",
     links: [{ kind: "github", label: "GitHub" }],
-    frame: "window",
-    shot: { label: "Screenshot: DreamWall gallery, macOS" },
+    frame: "app",
+    shot: {
+      label: "Screenshot: DreamWall gallery, macOS",
+      src: "/images/projects/dreamwall/gallery.png",
+      aspect: 2202 / 1316,
+    },
     accent: "#6A4291",
   },
   {

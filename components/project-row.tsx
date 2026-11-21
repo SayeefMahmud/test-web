@@ -14,8 +14,9 @@ type ProjectRowProps = {
   headingLevel?: "h2" | "h3";
 };
 
+// Size container: a frame can fit itself to the panel's content box (cqw / cqh).
 const mediaPanel =
-  "box-border flex aspect-[4/3] min-w-0 flex-[1_1_520px] items-center justify-center rounded-[14px] bg-sunk p-[7%]";
+  "box-border flex aspect-[4/3] min-w-0 flex-[1_1_520px] items-center justify-center rounded-[14px] bg-sunk p-[7%] [container-type:size]";
 
 /** One selected project: media panel in a device frame + text, alternating sides by index. */
 export function ProjectRow({ project: p, index, headingLevel: Heading = "h3" }: ProjectRowProps) {

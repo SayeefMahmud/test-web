@@ -89,6 +89,8 @@
   --radius-frame: 14px;
   --shadow-shot: 0 1px 2px rgb(0 0 0 / 0.06), 0 12px 32px -12px rgb(0 0 0 / 0.18);
   --shadow-device: 0 12px 32px -12px rgb(0 0 0 / 0.25);
+  /* shadow-shot as a filter, for screenshots with transparent rounded corners (macOS windows). */
+  --drop-shadow-shot: 0 1px 2px rgb(0 0 0 / 0.06), 0 10px 14px rgb(0 0 0 / 0.12);
 
   --ease-lift: cubic-bezier(0.2, 0.7, 0.2, 1);
 

@@ -28,10 +28,17 @@ export type Shot = {
   label: string;
   /** Path under `public/`, e.g. `/images/projects/stash/popup.png`. */
   src?: string;
+  /** CSS `object-position` when the frame crops the image, e.g. "top". Default: centre. */
+  position?: string;
+  /** Width ÷ height of the screenshot. Sizes the frameless `app` frame (default 4/3). */
+  aspect?: number;
 };
 
-/** Device frame drawn around a project screenshot. */
-export type Frame = "browser" | "window" | "phone" | "land";
+/**
+ * Device frame drawn around a project screenshot. `app`: no frame, the screenshot is a whole
+ * macOS window (captured with ⌥ so it has no shadow; its transparent corners stay rounded).
+ */
+export type Frame = "browser" | "window" | "app" | "phone" | "land";
 
 /** Drives the status dot colour: ok, info, warn, muted. */
 export type StatusKind = "live" | "beta" | "progress" | "dev";

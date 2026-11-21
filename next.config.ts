@@ -5,6 +5,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
+  images: {
+    // 75: photos (default). 90: project screenshots, whose small UI text blurs at 75.
+    qualities: [75, 90],
+  },
   turbopack: {
     // Pin the root: a stray lockfile in a parent folder would otherwise be picked up.
     root: path.join(__dirname),
