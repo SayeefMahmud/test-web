@@ -6,7 +6,6 @@ import {
   contact,
   experience,
   hero,
-  howIWork,
   moreProjects,
   site,
   stack,
@@ -20,12 +19,10 @@ import {
   MoreProjectRows,
   Prose,
   StackRows,
-  StepList,
   Subheading,
-  ToolList,
 } from "./blocks";
 import { Footer } from "./footer";
-import { Section, SectionHeader, cx } from "./layout";
+import { Section, SectionHeader } from "./layout";
 import { Portrait } from "./media";
 import { ProjectList } from "./project-row";
 import { ActionRow, DefinitionRows, MetaList } from "./ui";
@@ -80,7 +77,7 @@ function Hero({ section }: SectionComponentProps) {
 function SelectedProjects({ section }: SectionComponentProps) {
   return (
     <Section id={section.id} spacing="projects" label={section.title ? undefined : section.nav}>
-      {section.title && <SectionHeader title={section.title} action={section.action} gap="lg" />}
+      {section.title && <SectionHeader title={section.title} action={section.action} />}
       <ProjectList projects={getProjects()} />
     </Section>
   );
@@ -88,7 +85,7 @@ function SelectedProjects({ section }: SectionComponentProps) {
 
 function MoreProjects({ section }: SectionComponentProps) {
   return (
-    <Section id={section.id} spacing="compact" label={moreProjects.title}>
+    <Section id={section.id} label={moreProjects.title}>
       <Subheading className="mb-3">{moreProjects.title}</Subheading>
       <MoreProjectRows items={moreProjects.items} />
     </Section>
@@ -98,7 +95,7 @@ function MoreProjects({ section }: SectionComponentProps) {
 function Experience({ section }: SectionComponentProps) {
   return (
     <Section id={section.id}>
-      {section.title && <SectionHeader title={section.title} gap="md" />}
+      {section.title && <SectionHeader title={section.title} />}
       <ExperienceList entries={experience.entries} />
       {experience.earlier.length > 0 && (
         <>
@@ -110,23 +107,10 @@ function Experience({ section }: SectionComponentProps) {
   );
 }
 
-function HowIWork({ section }: SectionComponentProps) {
-  return (
-    <Section id={section.id}>
-      {section.title && <SectionHeader title={section.title} />}
-      <p className="mt-4 max-w-[38em] text-[18px] text-pretty text-muted">{howIWork.lead}</p>
-      <StepList steps={howIWork.steps} className="mt-[clamp(36px,4vw,56px)]" />
-      {howIWork.tools.length > 0 && (
-        <ToolList tools={howIWork.tools} className="mt-[clamp(40px,5vw,64px)]" />
-      )}
-    </Section>
-  );
-}
-
 function Stack({ section }: SectionComponentProps) {
   return (
     <Section id={section.id}>
-      {section.title && <SectionHeader title={section.title} gap="sm" />}
+      {section.title && <SectionHeader title={section.title} />}
       <StackRows groups={stack} />
     </Section>
   );
@@ -135,7 +119,7 @@ function Stack({ section }: SectionComponentProps) {
 function Achievements({ section }: SectionComponentProps) {
   return (
     <Section id={section.id}>
-      {section.title && <SectionHeader title={section.title} gap="sm" />}
+      {section.title && <SectionHeader title={section.title} />}
       <AchievementList items={achievements} />
     </Section>
   );
@@ -165,7 +149,7 @@ function Contact({ section }: SectionComponentProps) {
   return (
     <Section id={section.id} spacing="contact">
       {section.title && <SectionHeader title={section.title} size="contact" />}
-      <EmailLink email={site.email} className={cx(section.title && "mt-7")} />
+      <EmailLink email={site.email} />
       <ActionRow actions={contact.actions} size="md" className="mt-8" />
       <Footer />
     </Section>
@@ -180,7 +164,6 @@ export const homeSectionComponents: Record<
   SelectedProjects,
   MoreProjects,
   Experience,
-  HowIWork,
   Stack,
   Achievements,
   About,

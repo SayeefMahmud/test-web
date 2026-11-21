@@ -27,12 +27,12 @@ export function Container({
 const sectionSpacing = {
   /** Most sections: clamp(80px, 10vw, 144px) top. */
   default: "pt-[var(--section-gap)]",
-  hero: "pt-[clamp(56px,10vw,144px)] pb-[clamp(56px,7vw,104px)]",
-  /** Selected projects: tighter top padding and a 1px top rule. */
-  projects: "pt-[clamp(56px,8vw,112px)] border-t border-border",
-  /** Follows the projects list (More projects). */
+  hero: "pt-[clamp(32px,4.5vw,64px)] pb-[clamp(40px,5vw,72px)]",
+  /** Selected projects: a 1px top rule. Hero bottom + this top = --section-gap, so the rule sits halfway. */
+  projects: "pt-[clamp(40px,5vw,72px)] border-t border-border",
+  /** More projects on /projects (follows the page title). */
   compact: "pt-[clamp(64px,8vw,112px)]",
-  contact: "pt-[clamp(96px,12vw,176px)] pb-[clamp(64px,8vw,96px)]",
+  contact: "pt-[var(--section-gap)] pb-[clamp(64px,8vw,96px)]",
   /** Case-study hero. */
   caseStudy: "pt-[clamp(40px,6vw,80px)]",
   caseStudyMedia: "pt-[clamp(40px,5vw,72px)]",
@@ -70,21 +70,13 @@ export function Section({ id, spacing = "default", label, className, children }:
   );
 }
 
-const headerGap = {
-  /** Selected projects: clamp(40px, 5vw, 72px). */
-  lg: "mb-[clamp(40px,5vw,72px)]",
-  /** Experience: clamp(32px, 4vw, 56px). */
-  md: "mb-[clamp(32px,4vw,56px)]",
-  /** Stack, achievements: clamp(28px, 3vw, 40px). */
-  sm: "mb-[clamp(28px,3vw,40px)]",
-  none: "",
-} as const;
+/** Heading → content gap, the same for every section. */
+const headerGap = "mb-[clamp(28px,3vw,40px)]";
 
 type SectionHeaderProps = {
   title: string;
   /** Link on the right, e.g. "All projects →". Hidden without `href`. */
   action?: Link;
-  gap?: keyof typeof headerGap;
   /** `contact` is the large closing headline. */
   size?: "h1" | "contact";
   className?: string;
@@ -94,7 +86,6 @@ type SectionHeaderProps = {
 export function SectionHeader({
   title,
   action,
-  gap = "none",
   size = "h1",
   className,
 }: SectionHeaderProps) {
@@ -112,13 +103,13 @@ export function SectionHeader({
   );
 
   if (!action?.href) {
-    return <div className={cx(headerGap[gap], className)}>{heading}</div>;
+    return <div className={cx(headerGap, className)}>{heading}</div>;
   }
   return (
     <div
       className={cx(
         "flex flex-wrap items-baseline justify-between gap-4",
-        headerGap[gap],
+        headerGap,
         className,
       )}
     >

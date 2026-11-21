@@ -6,16 +6,16 @@ Target: pixel-identical to the reference screenshots at 1440px and 390px, light 
 
 ## Decisions
 
-| Topic | Decision |
-|---|---|
-| Framework | Next.js (App Router) + TypeScript, fully static |
-| Styling | Tailwind CSS v4, design tokens as CSS variables (`tokens.css` + `tailwind-theme.css`) |
-| Fonts | `next/font/google`: Newsreader (opsz axis, normal 400; italic dropped in Phase 5 — unused), Public Sans 400/500/600, IBM Plex Mono 400/500 |
-| Theme | Light default, `.dark` on `<html>`, no-flash inline init script (localStorage → `prefers-color-scheme`) |
-| Case studies | MDX per project in `content/projects/<slug>.mdx` |
-| Code highlighting | Shiki at build time, theme matched to `--code` / `--code-fg` |
-| Hosting | Vercel (Hobby plan), custom domain `sayeefmahmud.com` + `www` |
-| Visual QA | Playwright screenshots vs. reference PNGs |
+| Topic             | Decision                                                                                                                                   |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Framework         | Next.js (App Router) + TypeScript, fully static                                                                                            |
+| Styling           | Tailwind CSS v4, design tokens as CSS variables (`tokens.css` + `tailwind-theme.css`)                                                      |
+| Fonts             | `next/font/google`: Newsreader (opsz axis, normal 400; italic dropped in Phase 5 — unused), Public Sans 400/500/600, IBM Plex Mono 400/500 |
+| Theme             | Light default, `.dark` on `<html>`, no-flash inline init script (localStorage → `prefers-color-scheme`)                                    |
+| Case studies      | MDX per project in `content/projects/<slug>.mdx`                                                                                           |
+| Code highlighting | Shiki at build time, theme matched to `--code` / `--code-fg`                                                                               |
+| Hosting           | Vercel (Hobby plan), custom domain `sayeefmahmud.com` + `www`                                                                              |
+| Visual QA         | Playwright screenshots vs. reference PNGs                                                                                                  |
 
 ## Extensibility principle (applies to every phase)
 
@@ -24,10 +24,14 @@ Adding, removing or reordering anything should be a content/config edit, not a l
 1. **Home page is a section registry.** `content/home.ts` exports an ordered array:
    ```ts
    export const homeSections: HomeSection[] = [
-     { id: 'hero', component: 'Hero' },
-     { id: 'projects', component: 'SelectedProjects', title: 'Selected projects' },
-     { id: 'more-projects', component: 'MoreProjects' },
-     { id: 'experience', component: 'Experience', title: 'Experience' },
+     { id: "hero", component: "Hero" },
+     {
+       id: "projects",
+       component: "SelectedProjects",
+       title: "Selected projects",
+     },
+     { id: "more-projects", component: "MoreProjects" },
+     { id: "experience", component: "Experience", title: "Experience" },
      // ...
    ];
    ```
@@ -46,6 +50,12 @@ Adding, removing or reordering anything should be a content/config edit, not a l
 ## Current state (updated 2026-11-21) — read this first in a new session
 
 **Done:** Phases 1–5. **Next:** Phase 6 (deploy to Vercel).
+
+- Owner revisions after Phase 5 (2026-11-21) — deliberate departures from the handoff, don't revert:
+  - Hero: smaller headline (`--text-display` max 56px), less space above it, new second sentence in the lead.
+  - "How I work" section removed (with `StepList`, `ToolList`, `Step`, `Tool`).
+  - One vertical rhythm: every gap between home sections is `--section-gap` (144 / 80); hero bottom + projects top split it around the rule. Every section heading → content gap is one value, `clamp(28px,3vw,40px)` (`SectionHeader` has no `gap` prop any more).
+  - Experience, stack and achievements rewritten from the owner's Cefalo CV and contest resume. Experience entries take an optional `projects` list (one Cefalo entry, role shown once, a project per row); the content column is full width (no 680px cap).
 
 - Phase 5 status (2026-11-21):
   - QA tooling (all run against a production build on :3100 — `npm run build && npm run qa:serve`):
@@ -99,18 +109,21 @@ Adding, removing or reordering anything should be a content/config edit, not a l
 - Not yet set up: Vercel project + DNS (Phase 6), resume PDF, project screenshots, case-study content (all pending from owner).
 
 ## Phase 1 — Foundation ✅ (done 2026-11-20)
+
 - Scaffold with `create-next-app` (TS, Tailwind, App Router, ESLint) in the repo root; remove the old `index.html` and `CNAME`.
 - `app/globals.css`: Tailwind import, tokens, Tailwind theme mapping, `@custom-variant dark`, focus ring, reduced-motion rules.
 - Fonts via `next/font/google` exposed as `--font-newsreader`, `--font-public-sans`, `--font-plex-mono`.
 - Theme: inline `<head>` script + `ThemeToggle` client component (`aria-label`, `aria-pressed`, 200ms cross-fade).
 
 ## Phase 2 — Content layer ✅ (done 2026-11-21)
+
 - Port `design/content.js` → typed `content/site.ts` (identity, email, links, facts, more projects, experience, earlier, steps, tools, skills, achievements, about, contact) and `content/projects.ts`.
 - `content/home.ts` — section registry (see above).
 - `content/projects/<slug>.mdx` with frontmatter (role, timeline, platform, status, stack, links, frame, gallery).
 - `lib/projects.ts`: `getProjects`, `getProject(slug)`, `getNextProject(slug)`, `hasCaseStudy(slug)`.
 
 ## Phase 3 — Components ✅ (done 2026-11-21)
+
 - Layout primitives: `Container`, `Section`, `SectionHeader`.
 - UI: `Button` (primary / secondary / text, sizes 48/44/36), `TextLink` (underline styles, ↗ / → / ↓ arrows), `StatusBadge`, `MetaList` (facts `<dl>` grid), `RuleList` (rows with 1px top rule), `VisuallyHidden`.
 - Chrome: `Header` (sticky 64px, border after 8px scroll, current-link state), `MobileMenu` (full-screen sheet, scroll lock, Esc, focus trap, closes on link click, 200ms fade), `Footer`.
@@ -118,28 +131,31 @@ Adding, removing or reordering anything should be a content/config edit, not a l
 - Blocks: `ProjectRow` (alternating direction via index, 4px hover lift), `ExperienceEntry`, `EarlierRow`, `StepList`, `ToolList`, `StackRows`, `AchievementItem`, `CodeBlock`, `Toc` (sticky, IntersectionObserver active state).
 
 ## Phase 4 — Pages ✅ (done 2026-11-21)
+
 - `/` — rendered from the section registry: Hero (load fade-in, 60ms stagger; portrait above meta on < md), Selected projects, More projects, Experience, How I work, Stack, Achievements & certifications, About, Contact + footer.
 - `/projects/[slug]` — case study template, `generateStaticParams` only for projects that have MDX; "Next project" link.
 - `/projects` — all projects, reusing `ProjectRow`.
 - Metadata: titles/descriptions, Open Graph image, `sitemap.ts`, `robots.ts`, favicon. `/resume.pdf` served from `public/` once provided.
 
 ## Phase 5 — Fidelity, accessibility, performance ✅ (done 2026-11-21)
+
 - Playwright script capturing `/` and a case study at 1440 and 390, light + dark, and mobile menu open; compare to screenshots 01–07 and fix deltas.
 - Accessibility: one H1 per page, section titles are H2 (styled as h1 token), project names H3, ≥ 44px mobile hit targets, descriptive link text, AA contrast in both themes.
 - Lighthouse pass (performance, a11y, SEO).
 
 ## Phase 6 — Deploy (Vercel)
+
 - Import the GitHub repo into Vercel (Hobby plan); every push to `main` deploys, PRs get preview URLs.
 - Add `sayeefmahmud.com` and `www.sayeefmahmud.com` in Vercel → set DNS at the registrar (A record `76.76.21.21` for apex, CNAME `cname.vercel-dns.com` for `www`, or switch nameservers to Vercel). HTTPS is automatic.
 
 ## Assets
 
-| Asset | Status | Notes |
-|---|---|---|
-| Portrait | Provided, already 4:5 (`IMG_7969.jpg`, 1856×2320, 650 KB) | Copy to `public/images/portrait.jpg` in Phase 1; `next/image` handles responsive sizes. Used in Hero and About (until a second photo is provided). The original 2:3 `Sayeef Mahmud.jpg` is not needed. |
-| Resume PDF | Pending | Goes to `public/resume.pdf`; buttons hidden until present. |
-| Project screenshots | Pending | Browser/window 1600×1000, phone 1080×2280, landscape 2280×1080 → `public/images/projects/<slug>/`. Placeholders until then. |
-| Case studies | Pending (Watchlist draft in handoff) | One MDX per project; link hidden for projects without one. |
-| Profile URLs | Provided (2026-11-21) | LinkedIn, GitHub, Codeforces, CodeChef in `content/site.ts` (`social`). |
-| Project URLs | None public yet (owner, 2026-11-21) | Live site / GitHub / Google Play per project. Set `href` in `content/projects.ts`; project links stay hidden until then. |
-| Copy placeholders | Pending | Experience dates/summaries, second About paragraph, Watchlist timeline/challenges/what's next. |
+| Asset               | Status                                                    | Notes                                                                                                                                                                                                  |
+| ------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Portrait            | Provided, already 4:5 (`IMG_7969.jpg`, 1856×2320, 650 KB) | Copy to `public/images/portrait.jpg` in Phase 1; `next/image` handles responsive sizes. Used in Hero and About (until a second photo is provided). The original 2:3 `Sayeef Mahmud.jpg` is not needed. |
+| Resume PDF          | Pending                                                   | Goes to `public/resume.pdf`; buttons hidden until present.                                                                                                                                             |
+| Project screenshots | Pending                                                   | Browser/window 1600×1000, phone 1080×2280, landscape 2280×1080 → `public/images/projects/<slug>/`. Placeholders until then.                                                                            |
+| Case studies        | Pending (Watchlist draft in handoff)                      | One MDX per project; link hidden for projects without one.                                                                                                                                             |
+| Profile URLs        | Provided (2026-11-21)                                     | LinkedIn, GitHub, Codeforces, CodeChef in `content/site.ts` (`social`).                                                                                                                                |
+| Project URLs        | None public yet (owner, 2026-11-21)                       | Live site / GitHub / Google Play per project. Set `href` in `content/projects.ts`; project links stay hidden until then.                                                                               |
+| Copy placeholders   | Pending                                                   | Experience dates/summaries, second About paragraph, Watchlist timeline/challenges/what's next.                                                                                                         |

@@ -2,11 +2,10 @@ import type {
   Achievement,
   EarlierEntry,
   ExperienceEntry as ExperienceEntryData,
+  ExperienceProject as ExperienceProjectData,
   MoreProject,
   Paragraph,
   SkillGroup,
-  Step,
-  Tool,
 } from "@/content/types";
 import { cx } from "./layout";
 import { RuleItem, RuleList, TextLink } from "./ui";
@@ -23,7 +22,9 @@ export function Subheading({
   level?: "h2" | "h3";
   className?: string;
 }) {
-  return <Tag className={cx("text-ui font-semibold", className)}>{children}</Tag>;
+  return (
+    <Tag className={cx("text-ui font-semibold", className)}>{children}</Tag>
+  );
 }
 
 /** Name on the left, type muted on the right, 1px top rules. */
@@ -46,7 +47,34 @@ export function MoreProjectRows({ items }: { items: MoreProject[] }) {
   );
 }
 
-/** 220px meta column (dates, employer) + content column (max 680px). */
+/** Mono tech list, "A · B · C". Hidden when empty. */
+function TechLine({ tech }: { tech?: string[] }) {
+  if (!tech?.length) return null;
+  return (
+    <p className="mt-3 font-mono text-meta text-muted">{tech.join(" · ")}</p>
+  );
+}
+
+/** A project under a role: name with its dates, context, summary, tech. Projects after the first sit under a 1px rule. */
+function ExperienceProjectItem({
+  project: p,
+}: {
+  project: ExperienceProjectData;
+}) {
+  return (
+    <li className="mt-6 border-t border-border pt-6 first:mt-5 first:border-t-0 first:pt-0">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
+        <h4 className="font-semibold">{p.name}</h4>
+        <p className="font-mono text-meta text-muted">{p.time}</p>
+      </div>
+      <p className="mt-0.5 text-ui text-muted">{p.context}</p>
+      <p className="mt-3 text-pretty">{p.summary}</p>
+      <TechLine tech={p.tech} />
+    </li>
+  );
+}
+
+/** 220px meta column (dates, employer) + full-width content column: role, then its projects. */
 export function ExperienceEntry({ entry: e }: { entry: ExperienceEntryData }) {
   return (
     <li className="flex flex-wrap gap-x-[clamp(24px,4vw,64px)] gap-y-2 border-t border-border py-7">
@@ -54,23 +82,32 @@ export function ExperienceEntry({ entry: e }: { entry: ExperienceEntryData }) {
         <p className="font-mono text-meta text-muted">{e.time}</p>
         <p className="mt-1 font-medium">{e.org}</p>
       </div>
-      <div className="max-w-[680px] min-w-0 flex-[1_1_420px]">
+      <div className="min-w-0 flex-[1_1_420px]">
         <h3 className="text-h3 font-semibold">{e.role}</h3>
-        <p className="mt-0.5 text-ui text-muted">{e.context}</p>
-        <p className="mt-3 text-pretty">{e.summary}</p>
-        {e.tech.length > 0 && (
-          <p className="mt-3 font-mono text-meta text-muted">{e.tech.join(" · ")}</p>
+        {e.context && <p className="mt-0.5 text-ui text-muted">{e.context}</p>}
+        {e.summary && <p className="mt-3 text-pretty">{e.summary}</p>}
+        <TechLine tech={e.tech} />
+        {e.projects && e.projects.length > 0 && (
+          <ul className="m-0 list-none p-0">
+            {e.projects.map((p) => (
+              <ExperienceProjectItem key={p.name} project={p} />
+            ))}
+          </ul>
         )}
       </div>
     </li>
   );
 }
 
-export function ExperienceList({ entries }: { entries: ExperienceEntryData[] }) {
+export function ExperienceList({
+  entries,
+}: {
+  entries: ExperienceEntryData[];
+}) {
   return (
     <ol className="m-0 list-none p-0">
       {entries.map((e) => (
-        <ExperienceEntry key={`${e.time}-${e.context}`} entry={e} />
+        <ExperienceEntry key={`${e.org}-${e.time}`} entry={e} />
       ))}
     </ol>
   );
@@ -80,7 +117,9 @@ export function ExperienceList({ entries }: { entries: ExperienceEntryData[] }) 
 export function EarlierRow({ entry: e }: { entry: EarlierEntry }) {
   return (
     <li className="flex flex-wrap gap-x-[clamp(24px,4vw,64px)] gap-y-1 border-t border-border py-3.5 text-ui">
-      <span className="flex-[0_0_220px] pt-0.5 font-mono text-meta text-muted">{e.time}</span>
+      <span className="flex-[0_0_220px] pt-0.5 font-mono text-meta text-muted">
+        {e.time}
+      </span>
       <span className="flex-[1_1_420px]">
         <strong className="font-semibold">{e.role}</strong>, {e.org}{" "}
         <span className="text-muted">· {e.description}</span>
@@ -96,40 +135,6 @@ export function EarlierList({ entries }: { entries: EarlierEntry[] }) {
         <EarlierRow key={`${e.role}-${e.org}`} entry={e} />
       ))}
     </ul>
-  );
-}
-
-/** Numbered steps (01, 02, …), auto-fit columns ≥ 240px, each under a 1px fg rule. */
-export function StepList({ steps, className }: { steps: Step[]; className?: string }) {
-  return (
-    <ol
-      className={cx(
-        "m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-8 p-0",
-        className,
-      )}
-    >
-      {steps.map((s, i) => (
-        <li key={s.title} className="border-t border-fg pt-4">
-          <span className="font-mono text-meta text-muted">{String(i + 1).padStart(2, "0")}</span>
-          <h3 className="mt-1.5 font-serif text-[26px] leading-[1.2] font-normal">{s.title}</h3>
-          <p className="mt-2.5 text-ui text-pretty text-muted">{s.description}</p>
-        </li>
-      ))}
-    </ol>
-  );
-}
-
-/** "**Title.** muted description" rows in two columns (≥ 300px). `highlight` colours the title accent. */
-export function ToolList({ tools, className }: { tools: Tool[]; className?: string }) {
-  return (
-    <RuleList minColumn={300} className={className}>
-      {tools.map((t) => (
-        <RuleItem key={t.title} className="text-ui">
-          <strong className={cx("font-semibold", t.highlight && "text-accent")}>{t.title}.</strong>{" "}
-          <span className="text-muted">{t.description}</span>
-        </RuleItem>
-      ))}
-    </RuleList>
   );
 }
 
@@ -161,7 +166,9 @@ export function AchievementItem({ item: a }: { item: Achievement }) {
         <span className="text-muted">{a.detail}</span>
       </span>
       {a.year && (
-        <span className="flex-none pt-0.5 font-mono text-meta text-muted">{a.year}</span>
+        <span className="flex-none pt-0.5 font-mono text-meta text-muted">
+          {a.year}
+        </span>
       )}
     </RuleItem>
   );
@@ -177,14 +184,24 @@ export function AchievementList({ items }: { items: Achievement[] }) {
   );
 }
 
-/** 18px paragraphs (About). The first sits 20px below the heading, the rest 16px apart. */
-export function Prose({ paragraphs, className }: { paragraphs: Paragraph[]; className?: string }) {
+/** 18px paragraphs (About), 16px apart. The heading above supplies the top gap. */
+export function Prose({
+  paragraphs,
+  className,
+}: {
+  paragraphs: Paragraph[];
+  className?: string;
+}) {
   return (
     <div className={className}>
       {paragraphs.map((p, i) => (
         <p
           key={p.text}
-          className={cx("text-[18px] text-pretty", i === 0 ? "mt-5" : "mt-4", p.muted && "text-muted")}
+          className={cx(
+            "text-[18px] text-pretty",
+            i > 0 && "mt-4",
+            p.muted && "text-muted",
+          )}
         >
           {p.text}
         </p>
@@ -194,7 +211,13 @@ export function Prose({ paragraphs, className }: { paragraphs: Paragraph[]; clas
 }
 
 /** Contact email as a large Newsreader accent link: 1px underline at 8px, 2px on hover. */
-export function EmailLink({ email, className }: { email: string; className?: string }) {
+export function EmailLink({
+  email,
+  className,
+}: {
+  email: string;
+  className?: string;
+}) {
   return (
     <a
       href={`mailto:${email}`}

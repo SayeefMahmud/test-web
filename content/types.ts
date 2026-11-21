@@ -72,14 +72,26 @@ export type MoreProject = {
   href?: string;
 };
 
+/** A project inside a job, shown under the role with its own dates. */
+export type ExperienceProject = {
+  name: string;
+  time: string;
+  /** Muted line under the name, e.g. "Digital platform for a Nordic hair-salon chain". */
+  context: string;
+  summary: string;
+  tech: string[];
+};
+
+/** One job. Use `projects` for several projects at the same employer; the role then shows once. */
 export type ExperienceEntry = {
   time: string;
   role: string;
   org: string;
-  /** Muted line under the role, e.g. "Enterprise web platform · Nordic client". */
-  context: string;
-  summary: string;
-  tech: string[];
+  /** Muted line under the role. */
+  context?: string;
+  summary?: string;
+  tech?: string[];
+  projects?: ExperienceProject[];
 };
 
 export type EarlierEntry = {
@@ -87,16 +99,6 @@ export type EarlierEntry = {
   role: string;
   org: string;
   description: string;
-};
-
-export type Step = {
-  title: string;
-  description: string;
-};
-
-export type Tool = Item & {
-  /** Renders the title in the accent colour (the "Certified." row). */
-  highlight?: boolean;
 };
 
 export type SkillGroup = {

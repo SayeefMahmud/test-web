@@ -3,8 +3,8 @@
 // and the inline copy in `docs/handoff/design/A-Home.dc.html`.
 //
 // Pending from the owner (keep as-is until provided, don't invent):
-// resume PDF, experience dates and summaries,
-// the second About paragraph.
+// resume PDF, the second About paragraph.
+// Experience, stack and achievements follow the owner's Cefalo CV and contest resume.
 
 import type {
   Achievement,
@@ -16,8 +16,6 @@ import type {
   MoreProject,
   Paragraph,
   SkillGroup,
-  Step,
-  Tool,
 } from "./types";
 
 /** Identity and global links. A missing `href` hides that link everywhere. */
@@ -36,8 +34,14 @@ export const site = {
 export const social = {
   linkedin: { label: "LinkedIn", href: "https://linkedin.com/in/notsayeef/" },
   github: { label: "GitHub", href: "https://github.com/SayeefMahmud" },
-  codeforces: { label: "Codeforces", href: "https://codeforces.com/profile/thisIsMorningstar" },
-  codechef: { label: "CodeChef", href: "https://www.codechef.com/users/sayeef_mahmud" },
+  codeforces: {
+    label: "Codeforces",
+    href: "https://codeforces.com/profile/thisIsMorningstar",
+  },
+  codechef: {
+    label: "CodeChef",
+    href: "https://www.codechef.com/users/sayeef_mahmud",
+  },
 } satisfies Record<string, Link>;
 
 const resume = (label: string, variant: Action["variant"]): Action => ({
@@ -54,7 +58,12 @@ export const labels = {
   switchTheme: "Switch theme",
   resume: "Resume",
   menuResume: "Download resume (PDF)",
-  projectFacts: { status: "Status", devices: "Runs on", stack: "Stack", notes: "Notes" },
+  projectFacts: {
+    status: "Status",
+    devices: "Runs on",
+    stack: "Stack",
+    notes: "Notes",
+  },
   caseStudyLink: "Case study",
   caseStudyEyebrow: "Case study",
   allProjects: "All projects",
@@ -79,7 +88,7 @@ export const hero = {
   eyebrow: "Dhaka, Bangladesh · Software engineer at Cefalo",
   headline:
     "I'm Sayeef Mahmud, a full-stack engineer building production web, mobile and AI-assisted systems.",
-  lead: "I build software for clients in the Nordics at Cefalo, mostly ASP.NET Core and Next.js. I like the hard, unglamorous parts: identity and access, cloud infrastructure, and bugs that only appear in production. Outside work I ship my own apps for desktop, mobile and the web.",
+  lead: "I build production software at Cefalo, mostly ASP.NET Core and Next.js. I work across the whole stack, from database design and APIs to frontends and deployment, and I enjoy the hard problems most. Outside work I ship my own apps for desktop, mobile and the web.",
   portraitAlt: "Sayeef Mahmud",
   actions: [
     { label: "View projects", href: "#projects", variant: "primary" },
@@ -105,113 +114,149 @@ export const moreProjects = {
   title: "More projects",
   items: [
     { name: "Book Recommender System", type: "Web app" },
-    { name: "QR code detection in perspective-distorted images", type: "Deep learning" },
+    {
+      name: "QR code detection in perspective-distorted images",
+      type: "Deep learning",
+    },
     { name: "AI-powered semantic search engine", type: "Hackathon" },
   ] satisfies MoreProject[],
 };
 
 export const experience = {
+  /** Newest first. Several projects at one employer go in `projects`, so the role shows once. */
   entries: [
     {
-      time: "YYYY – Present",
+      time: "Jul 2025 – Present",
       role: "Associate Software Engineer",
       org: "Cefalo",
-      context: "Enterprise web platform · Nordic client",
-      summary:
-        "Placeholder. One or two sentences on what I built and owned, e.g. ASP.NET Core services and a Next.js frontend, from design through production support.",
-      tech: ["C#", "ASP.NET Core", "Next.js", "TypeScript", "Azure", "MSSQL"],
-    },
-    {
-      time: "YYYY – YYYY",
-      role: "Associate Software Engineer",
-      org: "Cefalo",
-      context: "Identity and access · Nordic client",
-      summary:
-        "Placeholder. Sign-in and authorization across tenants with Microsoft Entra ID and OIDC, and debugging auth issues in distributed production systems.",
-      tech: ["Entra ID", "OIDC", "Node.js", "Google Cloud", "PostgreSQL"],
+      projects: [
+        {
+          name: "Cutters",
+          time: "Sep 2026 – Present",
+          context: "Digital platform for a Nordic hair-salon chain",
+          summary:
+            "Fixed duplicate customer profiles by moving POS customer creation to a background Pub/Sub subscriber: median sign-up time fell from 7.1 s to 0.4 s and new duplicates by 98%. Also restored the website contact form with signed uploads to Google Cloud Storage.",
+          tech: [
+            "ASP.NET Core",
+            "Node.js",
+            "Next.js",
+            "React Native",
+            "MongoDB",
+            "Google Cloud",
+            "Pub/Sub",
+            "Sentry",
+          ],
+        },
+        {
+          name: "OceanQuest",
+          time: "Jul 2026 – Sep 2026",
+          context: "B2B ocean-literacy platform",
+          summary:
+            "Architected the identity and multi-tenancy layer: Microsoft Entra ID sign-in for partner organisations, a custom tenant-isolation boundary and permission-based authorization. Cut partner onboarding from a two-step tenant-admin flow to a single link.",
+          tech: [
+            "ASP.NET Core 8",
+            "EF Core",
+            "PostgreSQL",
+            "Redis",
+            "React",
+            "TypeScript",
+            "Entra ID",
+            "Azure",
+          ],
+        },
+        {
+          name: "HR Portal",
+          time: "Jan 2026 – Jul 2026",
+          context: "Cefalo's HR system, used by 250+ employees",
+          summary:
+            "Built the Team Fund module end to end and the in-product AI assistant chat, and set up the team's Claude Code workflow: project docs, custom skills, hooks and subagents.",
+          tech: [
+            "Next.js",
+            "React",
+            "TypeScript",
+            "Ant Design",
+            "Tailwind CSS",
+            "ASP.NET Core",
+            "EF Core",
+          ],
+        },
+        {
+          name: "InnovatorsBay",
+          time: "Jul 2025 – Jan 2026",
+          context: "Platform for founders to share startup ideas",
+          summary:
+            "Built it full-stack with React and Express.js, then re-architected the backend in ASP.NET Core with Clean Architecture, ASP.NET Identity, policy-based authorization, Hangfire jobs and xUnit tests.",
+          tech: [
+            "React",
+            "Redux",
+            "Express.js",
+            "PostgreSQL",
+            "TypeORM",
+            "ASP.NET Core",
+            "MSSQL",
+            "Hangfire",
+          ],
+        },
+      ],
     },
   ] satisfies ExperienceEntry[],
   earlierTitle: "Earlier",
   earlier: [
     {
-      time: "YYYY – YYYY",
+      time: "Feb 2024 – Dec 2025",
       role: "Competitive Programming Trainer",
       org: "CPS Academy",
-      description: "Taught algorithms and problem solving.",
+      description:
+        "Taught competitive programming and organised practice contests.",
     },
     {
-      time: "YYYY – YYYY",
+      time: "Feb 2022 – May 2023",
       role: "Mentor",
       org: "TLE Eliminators",
-      description: "Mentored students preparing for rated contests.",
+      description:
+        "Taught algorithms to students in India and ran debugging and doubt-solving sessions.",
     },
   ] satisfies EarlierEntry[],
 };
 
-export const howIWork = {
-  lead: "I work spec-first, and I use Claude Code agents as part of a team's normal process. They get the same inputs a new teammate would: a written spec, a reviewed plan, and tests that define done.",
-  /** Numbered automatically (01, 02, …) in display order. */
-  steps: [
-    {
-      title: "Spec",
-      description:
-        "Write down what done means: behaviour, edge cases and the tests that will prove it.",
-    },
-    {
-      title: "Plan",
-      description:
-        "Break the spec into small, reviewable steps and find the risky parts before any code exists.",
-    },
-    {
-      title: "Tested implementation",
-      description:
-        "Build each step against its tests. Agents and people work from the same spec, and nothing merges red.",
-    },
-  ] satisfies Step[],
-  tools: [
-    {
-      title: "Custom skills",
-      description:
-        "Team procedures written once, so agents follow the same conventions every time.",
-    },
-    {
-      title: "Hooks",
-      description: "Formatting, linting and tests run automatically around agent actions.",
-    },
-    {
-      title: "Subagents",
-      description:
-        "Focused helpers for review, research and test writing, each with a narrow brief.",
-    },
-    {
-      title: "MCP integrations",
-      description: "Agents read from the tools the team already uses: trackers, docs, cloud.",
-    },
-    {
-      title: "Agent memory",
-      description: "A persistent knowledge base, so project context survives between sessions.",
-    },
-    {
-      title: "Certified",
-      description: "Anthropic Claude Certified Architect – Foundations, 2026.",
-      highlight: true,
-    },
-  ] satisfies Tool[],
-};
-
 export const stack: SkillGroup[] = [
-  { category: "Languages", items: ["TypeScript", "JavaScript", "C#", "C++", "Dart", "SQL"] },
-  { category: "Frontend", items: ["Next.js", "React", "Tailwind CSS"] },
+  {
+    category: "Languages",
+    items: ["TypeScript", "JavaScript", "C#", "C", "C++", "Dart", "SQL"],
+  },
+  {
+    category: "Frontend",
+    items: [
+      "Next.js",
+      "React",
+      "Redux Toolkit",
+      "TanStack Query",
+      "Tailwind CSS",
+      "Ant Design",
+    ],
+  },
   {
     category: "Backend",
-    items: ["ASP.NET Core", "Node.js", "EF Core", "Prisma", "REST & OpenAPI"],
+    items: [
+      "ASP.NET Core",
+      "Node.js",
+      "Express.js",
+      "EF Core",
+      "Prisma",
+      "TypeORM",
+      "Hangfire",
+      "REST & OpenAPI",
+    ],
   },
-  { category: "Mobile & Desktop", items: ["React Native (Expo)", "Flutter", "Unity"] },
+  {
+    category: "Mobile & Desktop",
+    items: ["React Native (Expo)", "Flutter", "Unity"],
+  },
   {
     category: "Cloud & Identity",
     items: [
-      "Azure",
-      "Google Cloud",
+      "Azure (Container Apps, Static Web Apps, Communication Services)",
+      "Google Cloud (GKE, Pub/Sub, BigQuery)",
       "Vercel",
       "Cloudflare Workers",
       "Microsoft Entra ID",
@@ -220,17 +265,35 @@ export const stack: SkillGroup[] = [
       "Authorization",
     ],
   },
-  { category: "Databases", items: ["PostgreSQL", "MSSQL", "MongoDB", "SQLite"] },
+  {
+    category: "Databases",
+    items: ["PostgreSQL", "MSSQL", "MongoDB", "Redis", "SQLite"],
+  },
   {
     category: "AI & agentic tooling",
-    items: ["Claude Code", "Skills", "Hooks", "Subagents", "MCP", "Agent knowledge bases"],
+    items: [
+      "Claude Code",
+      "Skills",
+      "Hooks",
+      "Subagents",
+      "MCP",
+      "Agent knowledge bases",
+    ],
+  },
+  {
+    category: "Architecture & observability",
+    items: ["Clean Architecture", "CQRS", "Docker", "Serilog", "Sentry"],
   },
   {
     category: "Testing & practices",
     items: [
+      "xUnit",
+      "Jest",
       "Vitest",
+      "Moq",
+      "FakeItEasy",
       "Spec-driven development",
-      "CI with GitHub Actions",
+      "CI with GitHub Actions, CircleCI and Jenkins",
       "Code review",
       "Production debugging",
     ],
@@ -238,14 +301,41 @@ export const stack: SkillGroup[] = [
 ];
 
 export const achievements: Achievement[] = [
-  { title: "Claude Certified Architect – Foundations", detail: "Anthropic", year: "2026" },
+  {
+    title: "Claude Certified Architect – Foundations",
+    detail: "Anthropic",
+    year: "2026",
+  },
   { title: "46th ICPC World Finals", detail: "Honorable Mention" },
+  {
+    title: "ICPC Asia West Continent Finals",
+    detail: "5th place",
+    year: "2021",
+  },
+  { title: "ICPC Asia Dhaka Regional", detail: "8th place", year: "2024" },
+  {
+    title: "SEC Inter University Junior Contest",
+    detail: "Champion",
+    year: "2022",
+  },
+  { title: "BUET Inter University Contest", detail: "4th place", year: "2023" },
   { title: "Codeforces Master", detail: "Max rating 2183" },
   { title: "CodeChef 6-star", detail: "Max rating 2324" },
   { title: "3000+ problems solved", detail: "Across online judges" },
-  { title: "Meta Hacker Cup, Round 3", detail: "259th of ~22,000", year: "2024" },
-  { title: "Problem setter and judge", detail: "CodeChef, Toph, inter-university contests" },
-  { title: "Machine Learning certificates", detail: "Coursera", year: "2023, 2024" },
+  {
+    title: "Meta Hacker Cup, Round 3",
+    detail: "259th of ~22,000",
+    year: "2024",
+  },
+  {
+    title: "Problem setter and judge",
+    detail: "CodeChef, Toph, inter-university contests",
+  },
+  {
+    title: "Machine Learning certificates",
+    detail: "Coursera",
+    year: "2023, 2024",
+  },
 ];
 
 export const about = {
@@ -262,7 +352,10 @@ export const about = {
   facts: [
     { label: "Based in", value: "Dhaka, Bangladesh" },
     { label: "Work", value: "Associate Software Engineer, Cefalo" },
-    { label: "Education", value: "BSc in Computer Science & Engineering, RUET" },
+    {
+      label: "Education",
+      value: "BSc in Computer Science & Engineering, RUET",
+    },
   ] satisfies Fact[],
 };
 
@@ -279,5 +372,10 @@ export const footer = {
   copyright: `© ${site.copyrightYear} ${site.name} · Dhaka`,
   /** Case-study footer omits the city. */
   copyrightShort: `© ${site.copyrightYear} ${site.name}`,
-  links: [social.codeforces, social.codechef, social.linkedin, social.github] satisfies Link[],
+  links: [
+    social.codeforces,
+    social.codechef,
+    social.linkedin,
+    social.github,
+  ] satisfies Link[],
 };
