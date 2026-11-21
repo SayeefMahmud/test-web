@@ -208,7 +208,7 @@ export const experience = {
 export const stack: SkillGroup[] = [
   {
     category: "Languages",
-    items: ["TypeScript", "JavaScript", "C#", "C", "C++", "Dart", "SQL"],
+    items: ["TypeScript", "JavaScript", "C#", "C", "C++", "SQL"],
   },
   {
     category: "Frontend",
@@ -231,7 +231,6 @@ export const stack: SkillGroup[] = [
       "Prisma",
       "TypeORM",
       "Hangfire",
-      "REST & OpenAPI",
     ],
   },
   {
@@ -244,11 +243,7 @@ export const stack: SkillGroup[] = [
       "Azure (Container Apps, Static Web Apps, Communication Services)",
       "Google Cloud (GKE, Pub/Sub, BigQuery)",
       "Vercel",
-      "Cloudflare Workers",
       "Microsoft Entra ID",
-      "OIDC",
-      "Multi-tenancy",
-      "Authorization",
     ],
   },
   {
@@ -267,8 +262,18 @@ export const stack: SkillGroup[] = [
     ],
   },
   {
-    category: "Architecture & observability",
-    items: ["Clean Architecture", "CQRS", "Docker", "Serilog", "Sentry"],
+    category: "Architecture & DevOps",
+    items: [
+      "Clean Architecture",
+      "CQRS",
+      "Multi-tenancy",
+      "Docker",
+      "GitHub Actions",
+      "CircleCI",
+      "Jenkins",
+      "Serilog",
+      "Sentry",
+    ],
   },
   {
     category: "Testing & practices",
@@ -279,9 +284,7 @@ export const stack: SkillGroup[] = [
       "Moq",
       "FakeItEasy",
       "Spec-driven development",
-      "CI with GitHub Actions, CircleCI and Jenkins",
-      "Code review",
-      "Production debugging",
+      "Test-driven development",
     ],
   },
 ];
