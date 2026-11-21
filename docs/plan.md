@@ -47,9 +47,17 @@ Adding, removing or reordering anything should be a content/config edit, not a l
 5. **Case-study sections are MDX components.** `<Problem>`, `<FeatureList>`, `<Decision>`, `<Results>`, `<Figure>`,
    `<Gallery>` etc. can be added/removed/reordered per project; the TOC is generated from the H2s.
 
-## Current state (updated 2026-11-21) — read this first in a new session
+## Current state (updated 2026-11-22) — read this first in a new session
 
-**Done:** Phases 1–5. **Next:** Phase 6 (deploy to Vercel).
+**Done:** Phases 1–6 — the site is live at https://sayeefmahmud.com on Vercel. **Next:** owner assets (resume PDF, screenshots, case studies) as they arrive; re-measure Lighthouse on the live site.
+
+- Phase 6 status (2026-11-22):
+  - Vercel project `sayeef/portfolio`, connected to GitHub `SayeefMahmud/test-web`; every push to `main` deploys to production.
+  - `vercel.json` pins `"framework": "nextjs"`: the project was imported while the repo was still the old static `index.html`, so Vercel detected "Other" and served `NOT_FOUND` for every route. Don't remove it.
+  - Domains: `sayeefmahmud.com` → Production; `www.sayeefmahmud.com` → 308 to the apex. Let's Encrypt certificates are issued automatically.
+  - DNS at Spaceship (registrar + nameservers): `@` A `216.198.79.1`, `www` CNAME `94948585ffaaa430.vercel-dns-017.com` (Vercel's project-specific values). The `_github-pages-challenge` TXT is kept on purpose: it stops anyone else from claiming the domain on GitHub Pages.
+  - GitHub Pages is disabled on the repo (it served the old `index.html`).
+  - Verified live: `/`, `/projects`, sitemap, robots, OG image and icon return 200; case-study and unknown URLs return 404; 1440 + 390 in light and dark render with no console errors.
 
 - Owner revisions after Phase 5 (2026-11-21) — deliberate departures from the handoff, don't revert:
   - Hero: smaller headline (`--text-display` max 56px), less space above it, new second sentence in the lead; the lead now opens with "I've spent more than five years in competitive programming. Now I build…".
@@ -116,7 +124,7 @@ Adding, removing or reordering anything should be a content/config edit, not a l
   - `app/layout.tsx` — metadata (`metadataBase` https://sayeefmahmud.com), viewport theme colours.
   - `public/images/portrait.jpg` — 4:5 portrait, 1856×2320.
 - Verified: build/lint/tsc pass; fonts load; theme follows OS, toggles, persists across reload, no flash, no console errors.
-- Not yet set up: Vercel project + DNS (Phase 6), resume PDF, project screenshots, case-study content (all pending from owner).
+- Not yet set up: resume PDF, project screenshots, case-study content (all pending from owner).
 
 ## Phase 1 — Foundation ✅ (done 2026-11-20)
 
@@ -153,7 +161,7 @@ Adding, removing or reordering anything should be a content/config edit, not a l
 - Accessibility: one H1 per page, section titles are H2 (styled as h1 token), project names H3, ≥ 44px mobile hit targets, descriptive link text, AA contrast in both themes.
 - Lighthouse pass (performance, a11y, SEO).
 
-## Phase 6 — Deploy (Vercel)
+## Phase 6 — Deploy (Vercel) ✅ (done 2026-11-22)
 
 - Import the GitHub repo into Vercel (Hobby plan); every push to `main` deploys, PRs get preview URLs.
 - Add `sayeefmahmud.com` and `www.sayeefmahmud.com` in Vercel → set DNS at the registrar (A record `76.76.21.21` for apex, CNAME `cname.vercel-dns.com` for `www`, or switch nameservers to Vercel). HTTPS is automatic.
