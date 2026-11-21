@@ -15,6 +15,7 @@ export type HomeSectionComponent =
   | "MoreProjects"
   | "Experience"
   | "Stack"
+  | "CompetitiveProgramming"
   | "Achievements"
   | "About"
   | "Contact";
@@ -43,7 +44,13 @@ export const homeSections: HomeSection[] = [
   { id: "more-projects", component: "MoreProjects" },
   { id: "experience", component: "Experience", title: "Experience", nav: "Experience" },
   { id: "stack", component: "Stack", title: "Stack" },
-  { id: "achievements", component: "Achievements", title: "Achievements & certifications" },
+  {
+    id: "competitive-programming",
+    component: "CompetitiveProgramming",
+    title: "Competitive programming",
+    nav: "CP",
+  },
+  { id: "certifications", component: "Achievements", title: "Certifications" },
   { id: "about", component: "About", title: "About", nav: "About" },
   {
     id: "contact",

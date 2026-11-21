@@ -12,6 +12,8 @@ export type Link = {
 export type Fact = {
   label: string;
   value: string;
+  /** Optional link on the value (e.g. a judge profile). */
+  href?: string;
 };
 
 /** A titled line with a muted description (tools, features, decisions, challenges). */
@@ -110,6 +112,8 @@ export type Achievement = {
   title: string;
   detail: string;
   year?: string;
+  /** Optional link on the title (e.g. a certificate). */
+  href?: string;
 };
 
 export type Paragraph = {

@@ -161,7 +161,9 @@ export function AchievementItem({ item: a }: { item: Achievement }) {
   return (
     <RuleItem className="flex justify-between gap-4 text-ui">
       <span>
-        <strong className="font-semibold">{a.title}</strong>
+        <strong className="font-semibold">
+          {a.href ? <TextLink href={a.href}>{a.title}</TextLink> : a.title}
+        </strong>
         <br />
         <span className="text-muted">{a.detail}</span>
       </span>

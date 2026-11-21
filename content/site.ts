@@ -202,22 +202,7 @@ export const experience = {
     },
   ] satisfies ExperienceEntry[],
   earlierTitle: "Earlier",
-  earlier: [
-    {
-      time: "Feb 2024 – Dec 2025",
-      role: "Competitive Programming Trainer",
-      org: "CPS Academy",
-      description:
-        "Taught competitive programming and organised practice contests.",
-    },
-    {
-      time: "Feb 2022 – May 2023",
-      role: "Mentor",
-      org: "TLE Eliminators",
-      description:
-        "Taught algorithms to students in India and ran debugging and doubt-solving sessions.",
-    },
-  ] satisfies EarlierEntry[],
+  earlier: [] as EarlierEntry[],
 };
 
 export const stack: SkillGroup[] = [
@@ -306,38 +291,107 @@ export const achievements: Achievement[] = [
     title: "Claude Certified Architect – Foundations",
     detail: "Anthropic",
     year: "2026",
-  },
-  { title: "46th ICPC World Finals", detail: "Honorable Mention" },
-  {
-    title: "ICPC Asia West Continent Finals",
-    detail: "5th place",
-    year: "2021",
-  },
-  { title: "ICPC Asia Dhaka Regional", detail: "8th place", year: "2024" },
-  {
-    title: "SEC Inter University Junior Contest",
-    detail: "Champion",
-    year: "2022",
-  },
-  { title: "BUET Inter University Contest", detail: "4th place", year: "2023" },
-  { title: "Codeforces Master", detail: "Max rating 2183" },
-  { title: "CodeChef 6-star", detail: "Max rating 2324" },
-  { title: "3000+ problems solved", detail: "Across online judges" },
-  {
-    title: "Meta Hacker Cup, Round 3",
-    detail: "259th of ~22,000",
-    year: "2024",
+    href: "https://www.credly.com/badges/9b409dd9-99ed-4575-a8b7-5dc8b6145c76/public_url",
   },
   {
-    title: "Problem setter and judge",
-    detail: "CodeChef, Toph, inter-university contests",
-  },
-  {
-    title: "Machine Learning certificates",
+    title: "Unsupervised Learning, Recommenders, Reinforcement Learning",
     detail: "Coursera",
-    year: "2023, 2024",
+    year: "2024",
+    href: "https://coursera.org/share/3ad31f201bf69ba6d603ffc7daac0dad",
+  },
+  {
+    title: "Supervised Machine Learning: Regression and Classification",
+    detail: "Coursera",
+    year: "2023",
+    href: "https://coursera.org/share/ffc2b07f07cd521e6670cad26a070704",
   },
 ];
+
+/** Competitive programming section: numbers, best results, problem setting, teaching. */
+export const competitiveProgramming = {
+  facts: [
+    { label: "Problems solved", value: "3000+ across online judges" },
+    { label: "Codeforces", value: "Master, max 2183", href: social.codeforces.href },
+    { label: "CodeChef", value: "6-star, max 2324", href: social.codechef.href },
+  ] satisfies Fact[],
+  resultsTitle: "Best results",
+  results: [
+    { title: "46th ICPC World Finals", detail: "Honorable Mention" },
+    {
+      title: "ICPC Asia West Continent Finals",
+      detail: "5th place",
+      year: "2021",
+    },
+    { title: "ICPC Asia Dhaka Regional", detail: "8th place", year: "2024" },
+    {
+      title: "SEC Inter University Junior Contest",
+      detail: "Champion",
+      year: "2022",
+    },
+    { title: "BUET Inter University Contest", detail: "4th place", year: "2023" },
+    {
+      title: "Meta Hacker Cup, Round 3",
+      detail: "259th of ~22,000",
+      year: "2024",
+    },
+  ] satisfies Achievement[],
+  problemSettingTitle: "Problem setting",
+  problemSetting: [
+    {
+      title: "UU Inter University Programming Contest",
+      detail: "Authored “MEX-imum Beauty”",
+      year: "2025",
+      href: "https://toph.co/c/uttara-university-inter-university-2025",
+    },
+    {
+      title: "MU Inter University Programming Contest",
+      detail: "Authored “Too Much Walking”",
+      year: "2024",
+      href: "https://toph.co/c/inter-university-sylhet-division-2024",
+    },
+    {
+      title: "CodeChef Starters 136",
+      detail: "Authored “Minimum Segments”",
+      year: "2024",
+      href: "https://www.codechef.com/problems/MINSEG",
+    },
+    {
+      title: "IIUC Inter University Programming Contest",
+      detail: "Authored “Not a Fun Game”",
+      year: "2023",
+      href: "https://toph.co/c/15th-iiuc-inter-university-2023",
+    },
+    {
+      title: "Toph Criterion 2022, Round 17",
+      detail: "Authored “Life Is All About Balance”",
+      year: "2022",
+      href: "https://toph.co/p/life-is-all-about-balance",
+    },
+    {
+      title: "Toph Tough Duo",
+      detail: "Authored “Birthday Present?!”",
+      year: "2022",
+      href: "https://toph.co/p/birthday-present",
+    },
+  ] satisfies Achievement[],
+  teachingTitle: "Teaching",
+  teaching: [
+    {
+      time: "Feb 2024 – Dec 2025",
+      role: "Competitive Programming Trainer",
+      org: "CPS Academy",
+      description:
+        "Taught competitive programming and organised practice contests.",
+    },
+    {
+      time: "Feb 2022 – May 2023",
+      role: "Mentor",
+      org: "TLE Eliminators",
+      description:
+        "Taught algorithms to students in India and ran debugging and doubt-solving sessions.",
+    },
+  ] satisfies EarlierEntry[],
+};
 
 export const about = {
   portraitAlt: "Sayeef Mahmud",

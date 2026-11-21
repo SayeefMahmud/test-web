@@ -249,7 +249,15 @@ export function MetaList({
           )}
         >
           <dt className="font-mono text-label text-muted">{f.label}</dt>
-          <dd className="mt-1 text-ui font-medium">{f.value}</dd>
+          <dd className="mt-1 text-ui font-medium">
+            {f.href ? (
+              <TextLink href={f.href} aria-label={`${f.label}: ${f.value}`}>
+                {f.value}
+              </TextLink>
+            ) : (
+              f.value
+            )}
+          </dd>
         </div>
       ))}
     </dl>

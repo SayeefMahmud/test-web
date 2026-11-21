@@ -3,6 +3,7 @@ import type { HomeSection, HomeSectionComponent } from "@/content/home";
 import {
   about,
   achievements,
+  competitiveProgramming,
   contact,
   experience,
   hero,
@@ -116,6 +117,34 @@ function Stack({ section }: SectionComponentProps) {
   );
 }
 
+function CompetitiveProgramming({ section }: SectionComponentProps) {
+  const cp = competitiveProgramming;
+  return (
+    <Section id={section.id}>
+      {section.title && <SectionHeader title={section.title} />}
+      <MetaList items={cp.facts} />
+      {cp.results.length > 0 && (
+        <>
+          <Subheading className="mt-10 mb-1">{cp.resultsTitle}</Subheading>
+          <AchievementList items={cp.results} />
+        </>
+      )}
+      {cp.problemSetting.length > 0 && (
+        <>
+          <Subheading className="mt-10 mb-1">{cp.problemSettingTitle}</Subheading>
+          <AchievementList items={cp.problemSetting} />
+        </>
+      )}
+      {cp.teaching.length > 0 && (
+        <>
+          <Subheading className="mt-10 mb-1">{cp.teachingTitle}</Subheading>
+          <EarlierList entries={cp.teaching} />
+        </>
+      )}
+    </Section>
+  );
+}
+
 function Achievements({ section }: SectionComponentProps) {
   return (
     <Section id={section.id}>
@@ -165,6 +194,7 @@ export const homeSectionComponents: Record<
   MoreProjects,
   Experience,
   Stack,
+  CompetitiveProgramming,
   Achievements,
   About,
   Contact,
