@@ -18,7 +18,12 @@ export function Container({
   className?: string;
 }) {
   return (
-    <div className={cx("mx-auto max-w-[var(--container)] px-[var(--page-pad)]", className)}>
+    <div
+      className={cx(
+        "mx-auto max-w-[var(--container)] px-[var(--page-pad)]",
+        className,
+      )}
+    >
       {children}
     </div>
   );
@@ -54,7 +59,13 @@ type SectionProps = {
 };
 
 /** Shared shell for every home and case-study section. Anchored sections clear the 64px sticky header. */
-export function Section({ id, spacing = "default", label, className, children }: SectionProps) {
+export function Section({
+  id,
+  spacing = "default",
+  label,
+  className,
+  children,
+}: SectionProps) {
   return (
     <section
       id={id}
@@ -95,7 +106,8 @@ export function SectionHeader({
         "font-serif font-normal",
         size === "h1"
           ? "text-h1"
-          : "max-w-[20em] text-h1 text-balance",
+          : // Below md the lines fill the column, as in the hero; balanced from md.
+            "text-h1 md:max-w-[20em] md:text-balance",
       )}
     >
       {title}

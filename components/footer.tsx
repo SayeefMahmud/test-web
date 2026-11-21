@@ -7,7 +7,11 @@ import { SmartLink, TextLink } from "./ui";
  * `home`: "© 2026 Sayeef Mahmud · Dhaka" + profile links.
  * `caseStudy`: "© 2026 Sayeef Mahmud" + email.
  */
-export function Footer({ variant = "home" }: { variant?: "home" | "caseStudy" }) {
+export function Footer({
+  variant = "home",
+}: {
+  variant?: "home" | "caseStudy";
+}) {
   const home = variant === "home";
   return (
     <footer
@@ -16,9 +20,16 @@ export function Footer({ variant = "home" }: { variant?: "home" | "caseStudy" })
         home ? "mt-[clamp(40px,5vw,64px)]" : "mt-16",
       )}
     >
-      <span>{home ? footer.copyright : footer.copyrightShort}</span>
+      {/* Home, below md: copyright centred on its own line, links spread across the full width. */}
+      <span
+        className={
+          home ? "w-full text-center md:w-auto md:text-left" : undefined
+        }
+      >
+        {home ? footer.copyright : footer.copyrightShort}
+      </span>
       {home ? (
-        <ul className="m-0 flex list-none flex-wrap gap-5 p-0">
+        <ul className="m-0 flex w-full list-none flex-wrap justify-between gap-5 p-0 md:w-auto md:justify-start">
           {footer.links
             .filter((l) => l.href)
             .map((l) => (
@@ -30,7 +41,10 @@ export function Footer({ variant = "home" }: { variant?: "home" | "caseStudy" })
             ))}
         </ul>
       ) : (
-        <SmartLink href={`mailto:${site.email}`} className="hit-area no-underline hover:text-fg">
+        <SmartLink
+          href={`mailto:${site.email}`}
+          className="hit-area no-underline hover:text-fg"
+        >
           {site.email}
         </SmartLink>
       )}

@@ -85,7 +85,8 @@ export const mobileMenu = {
 };
 
 export const hero = {
-  eyebrow: "Dhaka, Bangladesh · Software engineer at Cefalo",
+  /** Shown on one line joined by " · " from md; one part per line on mobile. */
+  eyebrow: ["Dhaka, Bangladesh", "Software engineer at Cefalo"],
   headline:
     "I'm Sayeef Mahmud, a full-stack engineer building production web, mobile and AI-assisted systems.",
   lead: "I'm an ICPC World Finalist with more than five years in competitive programming. Now I build production software at Cefalo, mostly ASP.NET Core and Next.js. I work across the whole stack, from database design and APIs to frontends and deployment, and I enjoy the hard problems most. Outside work I ship my own apps for desktop, mobile and the web.",

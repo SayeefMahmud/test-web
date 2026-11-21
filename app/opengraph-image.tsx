@@ -31,7 +31,7 @@ export default function OpengraphImage() {
       >
         <div style={{ flex: 1, height: "100%", display: "flex", flexDirection: "column" }}>
           <div style={{ fontFamily: "IBM Plex Mono", fontSize: 22, color: ogColors.muted }}>
-            {hero.eyebrow}
+            {hero.eyebrow.join(" · ")}
           </div>
           <div
             style={{

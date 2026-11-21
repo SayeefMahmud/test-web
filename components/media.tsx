@@ -55,7 +55,13 @@ function Screen({
       </div>
     );
   }
-  return <Placeholder label={shot.label} textClassName={textClassName} className={className} />;
+  return (
+    <Placeholder
+      label={shot.label}
+      textClassName={textClassName}
+      className={className}
+    />
+  );
 }
 
 function Dots({ size }: { size: 8 | 9 }) {
@@ -64,7 +70,10 @@ function Dots({ size }: { size: 8 | 9 }) {
       {[0, 1, 2].map((i) => (
         <span
           key={i}
-          className={cx("rounded-full bg-border2", size === 8 ? "size-2" : "size-[9px]")}
+          className={cx(
+            "rounded-full bg-border2",
+            size === 8 ? "size-2" : "size-[9px]",
+          )}
         />
       ))}
     </>
@@ -103,7 +112,9 @@ export function DeviceFrame({
             ? "shadow-[0_1px_2px_rgb(0_0_0/0.06),0_16px_40px_-16px_rgb(0_0_0/0.2)]"
             : "shadow-shot",
           // Browser: as wide as fits both the panel's width and its height (31px toolbar + 16:10 screen).
-          hero || !browser ? "w-full" : "w-[min(100cqw,calc((100cqh-31px)*1.6))]",
+          hero || !browser
+            ? "w-full"
+            : "w-[min(100cqw,calc((100cqh-31px)*1.6))]",
           !hero && !browser && "h-[86%]",
         )}
       >
@@ -123,7 +134,11 @@ export function DeviceFrame({
           textClassName={hero ? "text-meta" : "text-label"}
           // Browser screen is 16:10 (a 1440×900 viewport), so the screenshot fits uncropped.
           className={
-            hero ? "aspect-video p-0! leading-normal!" : browser ? "aspect-[16/10]" : "flex-1"
+            hero
+              ? "aspect-video p-0! leading-normal!"
+              : browser
+                ? "aspect-[16/10]"
+                : "flex-1"
           }
         />
       </div>
@@ -136,7 +151,10 @@ export function DeviceFrame({
     const ratio = shot.aspect ?? 4 / 3;
     return (
       <div
-        className={cx("drop-shadow-shot", hero && "mx-auto h-[min(70vh,640px)] max-w-full")}
+        className={cx(
+          "drop-shadow-shot",
+          hero && "mx-auto h-[min(70vh,640px)] max-w-full",
+        )}
         style={{
           aspectRatio: ratio,
           width: hero ? undefined : `min(100cqw, 100cqh * ${ratio})`,
@@ -170,7 +188,10 @@ export function DeviceFrame({
         shot={shot}
         sizes={sizes}
         textClassName={phone ? "text-[11px] p-3!" : "text-label p-3!"}
-        className={cx("box-border", phone ? "size-full" : "aspect-[19/9] w-full")}
+        className={cx(
+          "box-border",
+          phone ? "size-full" : "aspect-[19/9] w-full",
+        )}
       />
     </div>
   );
@@ -197,6 +218,10 @@ type PortraitProps = {
   /** Placeholder label when `src` is missing. */
   placeholderLabel?: string;
   className?: string;
+  /** Replaces the default frame (`aspect-[4/5] rounded-photo`), e.g. a circle on mobile. */
+  frameClassName?: string;
+  /** Extra classes for the image, e.g. `object-position`. */
+  imageClassName?: string;
 };
 
 /** 4:5 photo, radius 4, over the striped placeholder (which also shows if `src` is missing). */
@@ -207,9 +232,11 @@ export function Portrait({
   sizes,
   placeholderLabel = "Portrait",
   className,
+  frameClassName = "aspect-[4/5] rounded-photo",
+  imageClassName,
 }: PortraitProps) {
   return (
-    <div className={cx("relative aspect-[4/5] overflow-hidden rounded-photo", className)}>
+    <div className={cx("relative overflow-hidden", frameClassName, className)}>
       {src ? (
         <Image
           src={src}
@@ -217,10 +244,13 @@ export function Portrait({
           fill
           sizes={sizes}
           preload={preload}
-          className="bg-stripes object-cover"
+          className={cx("bg-stripes object-cover", imageClassName)}
         />
       ) : (
-        <Placeholder label={placeholderLabel} className="box-border size-full" />
+        <Placeholder
+          label={placeholderLabel}
+          className="box-border size-full"
+        />
       )}
     </div>
   );
