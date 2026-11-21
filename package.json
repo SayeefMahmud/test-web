@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "qa:serve": "next start -p 3100",
+    "qa:design-board": "python3 -m http.server 3200 --bind 127.0.0.1 -d docs/handoff",
+    "qa:screenshots": "node scripts/screenshots.mjs",
+    "qa:design": "node scripts/design-diff.mjs",
+    "qa:a11y": "node scripts/a11y.mjs"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -20,13 +25,17 @@
     "shiki": "^4.6.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@tailwindcss/turbopack": "4.3.3",
     "@types/mdx": "^2.0.14",
     "@types/node": "^20",
+    "@types/pngjs": "^6.0.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
+    "playwright": "^1.65.1",
+    "pngjs": "^7.0.0",
     "tailwindcss": "4.3.3",
     "typescript": "^5"
   }
