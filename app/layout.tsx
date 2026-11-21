@@ -6,7 +6,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://sayeefmahmud.com"),
   title: {
-    default: "Sayeef Mahmud — Software engineer",
+    default: "Sayeef Mahmud",
     template: "%s — Sayeef Mahmud",
   },
   description:
