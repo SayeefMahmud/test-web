@@ -173,7 +173,7 @@ function About({ section }: SectionComponentProps) {
           sizes="(min-width: 768px) 320px, 100vw"
           className="min-w-[240px] flex-[0_1_320px]"
         />
-        <div className="max-w-[640px] flex-[1_1_420px]">
+        <div className="flex-[1_1_420px]">
           {section.title && <SectionHeader title={section.title} />}
           <Prose paragraphs={about.paragraphs} />
           <DefinitionRows rows={about.facts} labelWidth={110} className="mt-7 text-ui" />

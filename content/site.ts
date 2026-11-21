@@ -88,7 +88,7 @@ export const hero = {
   eyebrow: "Dhaka, Bangladesh · Software engineer at Cefalo",
   headline:
     "I'm Sayeef Mahmud, a full-stack engineer building production web, mobile and AI-assisted systems.",
-  lead: "I've spent more than five years in competitive programming. Now I build production software at Cefalo, mostly ASP.NET Core and Next.js. I work across the whole stack, from database design and APIs to frontends and deployment, and I enjoy the hard problems most. Outside work I ship my own apps for desktop, mobile and the web.",
+  lead: "I'm an ICPC World Finalist with more than five years in competitive programming. Now I build production software at Cefalo, mostly ASP.NET Core and Next.js. I work across the whole stack, from database design and APIs to frontends and deployment, and I enjoy the hard problems most. Outside work I ship my own apps for desktop, mobile and the web.",
   portraitAlt: "Sayeef Mahmud",
   actions: [
     { label: "View projects", href: "#projects", variant: "secondary" },
@@ -143,7 +143,7 @@ export const experience = {
           time: "Sep 2026 – Present",
           context: "Digital platform for a Nordic hair-salon chain",
           summary:
-            "Fixed duplicate customer profiles by moving POS customer creation to a background Pub/Sub subscriber: median sign-up time fell from 7.1 s to 0.4 s and new duplicates by 98%. Also restored the website contact form with signed uploads to Google Cloud Storage.",
+            "Traced duplicate customer profiles from the React Native app to the POS through GCP logs and MongoDB, then moved POS customer creation to a background Pub/Sub subscriber: median sign-up time fell from 7.1 s to 0.4 s and new duplicates by 98%. Isolated a third-party API slowdown by instrumenting 1,217 vendor calls. After the Vercel shutdown, rebuilt the contact form with signed Cloud Storage uploads and rate limiting, fixing a bug that silently dropped attachments.",
           tech: [
             "ASP.NET Core",
             "Node.js",
@@ -160,7 +160,7 @@ export const experience = {
           time: "Jul 2026 – Sep 2026",
           context: "B2B ocean-literacy platform",
           summary:
-            "Architected the identity and multi-tenancy layer: Microsoft Entra ID sign-in for partner organisations, a custom tenant-isolation boundary and permission-based authorization. Cut partner onboarding from a two-step tenant-admin flow to a single link.",
+            "Architected the identity and multi-tenancy layer, where each partner organisation signs in through its own Microsoft Entra tenant. Wrote a custom issuer validator that checks every token against a database-backed tenant registry, and removed the Global Administrator consent step so partners activate with a single link. Also built the Ocean Impact dashboard, which turns verified ocean actions into CSRD-ready reports mapped to GRI/ESRS, migrated the map layer to Mapbox GL behind a shared adapter, and built an Obsidian knowledge vault as persistent AI-agent memory for the codebase.",
           tech: [
             "ASP.NET Core 8",
             "EF Core",
@@ -177,7 +177,7 @@ export const experience = {
           time: "Jan 2026 – Jul 2026",
           context: "Cefalo's HR system, used by 250+ employees",
           summary:
-            "Built the Team Fund module end to end and the in-product AI assistant chat, and set up the team's Claude Code workflow: project docs, custom skills, hooks and subagents.",
+            "Built the Team Fund module end to end, with separate views for HR, team leads, engineering managers and employees, and the in-product AI assistant chat with session history and markdown replies. Made table sort, filters and pagination persist in the URL, so list views can be shared and survive a reload. Set up the team's Claude Code workflow: project docs, custom skills for feature work and code review, hooks that enforce standards, and subagents.",
           tech: [
             "Next.js",
             "React",
@@ -193,7 +193,7 @@ export const experience = {
           time: "Jul 2025 – Jan 2026",
           context: "Platform for founders to share startup ideas",
           summary:
-            "Built it full-stack with React and Express.js, then re-architected the backend in ASP.NET Core with Clean Architecture, ASP.NET Identity, policy-based authorization, Hangfire jobs and xUnit tests.",
+            "Built the platform full-stack with React and Express.js: a REST API with JWT role-based access, a PostgreSQL schema on TypeORM, Swagger docs and Jest tests. Then re-architected the backend in ASP.NET Core with Clean Architecture, ASP.NET Identity, policy-based authorization, Hangfire background jobs, Serilog logging and xUnit tests.",
           tech: [
             "React",
             "Redux",
@@ -326,7 +326,11 @@ export const competitiveProgramming = {
   ] satisfies Fact[],
   resultsTitle: "Best results",
   results: [
-    { title: "46th ICPC World Finals", detail: "Honorable Mention" },
+    {
+      title: "46th ICPC World Finals",
+      detail: "Honorable Mention",
+      year: "2024",
+    },
     {
       title: "ICPC Asia West Continent Finals",
       detail: "5th place",
