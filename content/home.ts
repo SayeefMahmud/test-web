@@ -48,7 +48,7 @@ export const homeSections: HomeSection[] = [
   {
     id: "contact",
     component: "Contact",
-    title: "Hiring, or building something? I'd like to hear about it.",
+    title: "Building something interesting? I'd like to hear about it.",
     nav: "Contact",
   },
 ];

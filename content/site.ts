@@ -3,7 +3,7 @@
 // and the inline copy in `docs/handoff/design/A-Home.dc.html`.
 //
 // Pending from the owner (keep as-is until provided, don't invent):
-// resume PDF, the second About paragraph.
+// resume PDF (resume buttons are also commented out until the owner wants them).
 // Experience, stack and achievements follow the owner's Cefalo CV and contest resume.
 
 import type {
@@ -88,12 +88,13 @@ export const hero = {
   eyebrow: "Dhaka, Bangladesh · Software engineer at Cefalo",
   headline:
     "I'm Sayeef Mahmud, a full-stack engineer building production web, mobile and AI-assisted systems.",
-  lead: "I build production software at Cefalo, mostly ASP.NET Core and Next.js. I work across the whole stack, from database design and APIs to frontends and deployment, and I enjoy the hard problems most. Outside work I ship my own apps for desktop, mobile and the web.",
+  lead: "I've spent more than five years in competitive programming. Now I build production software at Cefalo, mostly ASP.NET Core and Next.js. I work across the whole stack, from database design and APIs to frontends and deployment, and I enjoy the hard problems most. Outside work I ship my own apps for desktop, mobile and the web.",
   portraitAlt: "Sayeef Mahmud",
   actions: [
     { label: "View projects", href: "#projects", variant: "primary" },
     { label: "Contact", href: "#contact", variant: "secondary" },
-    resume("Resume (PDF)", "text"),
+    // Resume download disabled for now (owner, 2026-11-21); uncomment to restore.
+    // resume("Resume (PDF)", "text"),
   ] satisfies Action[],
   facts: [
     { label: "Work", value: "Associate Software Engineer, Cefalo" },
@@ -345,8 +346,7 @@ export const about = {
       text: "I studied Computer Science and Engineering at RUET, where most of my free time went into competitive programming and, eventually, the ICPC World Finals. The habits carried over to production work: read the problem carefully, think about edge cases, and test before trusting anything.",
     },
     {
-      text: "Placeholder: one or two personal sentences, e.g. what you do away from the keyboard.",
-      muted: true,
+      text: "Away from the keyboard I play table tennis, and now and then I enter tournaments at local clubs. I also love running and take part in marathons.",
     },
   ] satisfies Paragraph[],
   facts: [
@@ -363,7 +363,8 @@ export const contact = {
   actions: [
     { ...social.linkedin, variant: "secondary", arrow: "↗" },
     { ...social.github, variant: "secondary", arrow: "↗" },
-    resume("Resume (PDF)", "secondary"),
+    // Resume download disabled for now (owner, 2026-11-21); uncomment to restore.
+    // resume("Resume (PDF)", "secondary"),
   ] satisfies Action[],
 };
 

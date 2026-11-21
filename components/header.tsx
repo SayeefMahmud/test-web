@@ -3,11 +3,11 @@
 import NextLink from "next/link";
 import { useCallback, useRef, useState } from "react";
 import { navLinks } from "@/content/home";
-import { header, labels, site } from "@/content/site";
+import { /* header, */ labels, site } from "@/content/site";
 import { Container, cx } from "./layout";
 import { MobileMenu } from "./mobile-menu";
 import { ThemeToggle } from "./theme-toggle";
-import { ActionButton } from "./ui";
+// import { ActionButton } from "./ui";
 
 type HeaderProps = {
   /** Section id of the current nav link (e.g. "projects" on a case study). */
@@ -52,7 +52,8 @@ export function Header({ current, mobileThemeToggle = true }: HeaderProps) {
           </ul>
           <div className="flex items-center gap-2.5">
             <ThemeToggle className="size-9 rounded-control border border-border hover:bg-sunk" />
-            <ActionButton action={header.resume} size="sm" />
+            {/* Resume download disabled for now (owner, 2026-11-21); uncomment to restore. */}
+            {/* <ActionButton action={header.resume} size="sm" /> */}
           </div>
         </nav>
 

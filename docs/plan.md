@@ -52,9 +52,11 @@ Adding, removing or reordering anything should be a content/config edit, not a l
 **Done:** Phases 1–5. **Next:** Phase 6 (deploy to Vercel).
 
 - Owner revisions after Phase 5 (2026-11-21) — deliberate departures from the handoff, don't revert:
-  - Hero: smaller headline (`--text-display` max 56px), less space above it, new second sentence in the lead.
+  - Hero: smaller headline (`--text-display` max 56px), less space above it, new second sentence in the lead; the lead now opens with "I've spent more than five years in competitive programming. Now I build…".
   - "How I work" section removed (with `StepList`, `ToolList`, `Step`, `Tool`).
   - One vertical rhythm: every gap between home sections is `--section-gap` (144 / 80); hero bottom + projects top split it around the rule. Every section heading → content gap is one value, `clamp(28px,3vw,40px)` (`SectionHeader` has no `gap` prop any more).
+  - Resume download turned off by the owner (2026-11-21): the four resume buttons (header, mobile menu, hero, contact) are commented out in `components/header.tsx`, `components/mobile-menu.tsx` and the `hero`/`contact` actions in `content/site.ts`. To bring them back, uncomment those lines and set `site.resumeUrl`.
+  - Contact heading reworded to "Building something interesting? I'd like to hear about it." (owner isn't job-hunting; no hiring copy). About's second paragraph is the owner's own (table tennis, running).
   - Experience, stack and achievements rewritten from the owner's Cefalo CV and contest resume. Experience entries take an optional `projects` list (one Cefalo entry, role shown once, a project per row); the content column is full width (no 680px cap).
 
 - Phase 5 status (2026-11-21):
@@ -153,9 +155,9 @@ Adding, removing or reordering anything should be a content/config edit, not a l
 | Asset               | Status                                                    | Notes                                                                                                                                                                                                  |
 | ------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Portrait            | Provided, already 4:5 (`IMG_7969.jpg`, 1856×2320, 650 KB) | Copy to `public/images/portrait.jpg` in Phase 1; `next/image` handles responsive sizes. Used in Hero and About (until a second photo is provided). The original 2:3 `Sayeef Mahmud.jpg` is not needed. |
-| Resume PDF          | Pending                                                   | Goes to `public/resume.pdf`; buttons hidden until present.                                                                                                                                             |
+| Resume PDF          | Not wanted for now                                        | Buttons commented out; see Current state.                                                                                                                                                              |
 | Project screenshots | Pending                                                   | Browser/window 1600×1000, phone 1080×2280, landscape 2280×1080 → `public/images/projects/<slug>/`. Placeholders until then.                                                                            |
 | Case studies        | Pending (Watchlist draft in handoff)                      | One MDX per project; link hidden for projects without one.                                                                                                                                             |
 | Profile URLs        | Provided (2026-11-21)                                     | LinkedIn, GitHub, Codeforces, CodeChef in `content/site.ts` (`social`).                                                                                                                                |
 | Project URLs        | None public yet (owner, 2026-11-21)                       | Live site / GitHub / Google Play per project. Set `href` in `content/projects.ts`; project links stay hidden until then.                                                                               |
-| Copy placeholders   | Pending                                                   | Experience dates/summaries, second About paragraph, Watchlist timeline/challenges/what's next.                                                                                                         |
+| Copy placeholders   | Pending                                                   | Experience dates/summaries, Watchlist timeline/challenges/what's next.                                                                                                         |

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { navLinks } from "@/content/home";
 import { labels, mobileMenu, site } from "@/content/site";
-import { ActionButton, SmartLink } from "./ui";
+import { /* ActionButton, */ SmartLink } from "./ui";
 
 const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
@@ -109,7 +109,8 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
       </nav>
 
       <div className="mt-auto flex flex-col gap-3">
-        <ActionButton action={mobileMenu.resume} size="block" />
+        {/* Resume download disabled for now (owner, 2026-11-21); uncomment to restore. */}
+        {/* <ActionButton action={mobileMenu.resume} size="block" /> */}
         <div className="flex justify-between gap-4 pt-2 text-small text-muted">
           <SmartLink href={`mailto:${site.email}`} className="no-underline hover:text-fg">
             {site.email}
