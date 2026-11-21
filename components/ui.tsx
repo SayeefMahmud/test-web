@@ -48,8 +48,6 @@ const textLinkVariants = {
   /** Project links: border2 underline at 5px, turns fg on hover. */
   underline:
     "underline decoration-border2 underline-offset-[5px] hover:decoration-fg active:text-accent active:decoration-accent",
-  /** "All projects →": accent, underline on hover. */
-  accent: "text-accent no-underline hover:underline underline-offset-4",
   /** Nav, footer, "← All projects": muted, fg on hover. */
   muted: "text-muted no-underline hover:text-fg",
   /** Inherit colour, no underline (footer links on muted rows). */

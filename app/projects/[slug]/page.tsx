@@ -7,11 +7,11 @@ import { Section } from "@/components/layout";
 import { Toc } from "@/components/toc";
 import { Button, MetaList, TextLink } from "@/components/ui";
 import { labels } from "@/content/site";
-import { getCaseStudy, getCaseStudySlugs, getNextProject } from "@/lib/projects";
+import { getCaseStudy, getCaseStudyStaticSlugs, getNextProject } from "@/lib/projects";
 
-/** Only projects with an MDX case study get a page; any other slug 404s. */
+/** Only projects with an MDX case study get a page (while switched on); any other slug 404s. */
 export function generateStaticParams() {
-  return getCaseStudySlugs().map((slug) => ({ slug }));
+  return getCaseStudyStaticSlugs().map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/projects/[slug]">): Promise<Metadata> {

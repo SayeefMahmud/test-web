@@ -5,6 +5,13 @@
 
 import type { MDXModule } from "mdx/types";
 
+/**
+ * Master switch for case-study pages. While `false`, every "Case study →" link
+ * is hidden, `/projects/<slug>` renders the 404 page and the sitemap lists no
+ * case studies. Set to `true` to bring them back.
+ */
+export const caseStudiesEnabled = false;
+
 export const caseStudies: Record<string, () => Promise<MDXModule>> = {
   watchlist: () => import("./projects/watchlist.mdx"),
 };

@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import type { MDXContent } from "mdx/types";
-import { caseStudies } from "@/content/case-studies";
+import { caseStudies, caseStudiesEnabled } from "@/content/case-studies";
 import { projects } from "@/content/projects";
 import type { CaseStudyFrontmatter, Fact, Project, Shot, TocEntry } from "@/content/types";
 import { slugify } from "./slug";
@@ -14,8 +14,9 @@ export function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
 }
 
+/** True when the project has a registered case study and case studies are switched on. */
 export function hasCaseStudy(slug: string): boolean {
-  return Object.hasOwn(caseStudies, slug);
+  return caseStudiesEnabled && Object.hasOwn(caseStudies, slug);
 }
 
 /** `/projects/<slug>` when the project has a case study, otherwise `undefined` (link hidden). */
@@ -23,9 +24,19 @@ export function getCaseStudyHref(slug: string): string | undefined {
   return hasCaseStudy(slug) ? `/projects/${slug}` : undefined;
 }
 
-/** Slugs that get a `/projects/[slug]` page (for `generateStaticParams`). */
+/** Slugs that get a `/projects/[slug]` page (empty while case studies are switched off). */
 export function getCaseStudySlugs(): string[] {
   return projects.map((p) => p.slug).filter(hasCaseStudy);
+}
+
+/**
+ * Params for `generateStaticParams`. Cache Components fails the build on an
+ * empty list, so while case studies are switched off this still returns the
+ * registered slugs — those pages prerender as the 404 page.
+ */
+export function getCaseStudyStaticSlugs(): string[] {
+  const slugs = getCaseStudySlugs();
+  return slugs.length > 0 ? slugs : Object.keys(caseStudies);
 }
 
 export type NextProject = {
@@ -57,7 +68,7 @@ export type CaseStudy = {
 
 export async function getCaseStudy(slug: string): Promise<CaseStudy | undefined> {
   const project = getProject(slug);
-  const load = Object.hasOwn(caseStudies, slug) ? caseStudies[slug] : undefined;
+  const load = hasCaseStudy(slug) ? caseStudies[slug] : undefined;
   if (!project || !load) return undefined;
 
   const mod = await load();

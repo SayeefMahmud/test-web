@@ -28,7 +28,7 @@ export type HomeSection = {
   title?: string;
   /** Label in the header / mobile menu. Omit to keep the section out of the nav. */
   nav?: string;
-  /** Link on the right of the section header, e.g. "All projects →". */
+  /** Link on the right of the section header, e.g. "All projects". */
   action?: Link;
 };
 

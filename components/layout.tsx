@@ -75,7 +75,7 @@ const headerGap = "mb-[clamp(28px,3vw,40px)]";
 
 type SectionHeaderProps = {
   title: string;
-  /** Link on the right, e.g. "All projects →". Hidden without `href`. */
+  /** Link on the right, e.g. "All projects" (underlined like the project links). Hidden without `href`. */
   action?: Link;
   /** `contact` is the large closing headline. */
   size?: "h1" | "contact";
@@ -114,7 +114,7 @@ export function SectionHeader({
       )}
     >
       {heading}
-      <TextLink href={action.href} variant="accent" arrow="→" className="text-ui font-medium">
+      <TextLink href={action.href} className="text-ui">
         {action.label}
       </TextLink>
     </div>
