@@ -58,8 +58,6 @@ export type Project = {
   tech: string[];
   status: string;
   statusKind: StatusKind;
-  /** "Notes" row. */
-  notes: string;
   /** External links, in display order. The "Case study →" link is added automatically when an MDX case study exists. */
   links: ProjectLink[];
   frame: Frame;

@@ -67,7 +67,6 @@ export function ProjectRow({ project: p, index, headingLevel: Heading = "h3" }: 
             },
             { label: labels.projectFacts.devices, value: p.devices },
             { label: labels.projectFacts.stack, value: p.tech.join(" · ") },
-            { label: labels.projectFacts.notes, value: p.notes },
           ]}
         />
         {links.length > 0 && (

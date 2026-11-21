@@ -63,7 +63,6 @@ export const labels = {
     status: "Status",
     devices: "Runs on",
     stack: "Stack",
-    notes: "Notes",
   },
   caseStudyLink: "Case study",
   caseStudyEyebrow: "Case study",
