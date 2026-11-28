@@ -71,6 +71,15 @@ export const labels = {
   nextProject: "Next project",
   screenshots: "Screenshots",
   stack: "Stack",
+  /** "Screenshot / 3D model" switch under a project's media (projects with a `model`). */
+  mediaView: {
+    group: "Show",
+    screenshot: "Screenshot",
+    model: "3D model",
+    loading: "Loading model…",
+    failed: "The 3D model couldn't load.",
+    hint: "Drag or use the arrow keys to turn it.",
+  },
 } as const;
 
 export const header = {
@@ -322,8 +331,16 @@ export const achievements: Achievement[] = [
 export const competitiveProgramming = {
   facts: [
     { label: "Problems solved", value: "3000+ across online judges" },
-    { label: "Codeforces", value: "Master, max 2183", href: social.codeforces.href },
-    { label: "CodeChef", value: "6-star, max 2324", href: social.codechef.href },
+    {
+      label: "Codeforces",
+      value: "Master, max 2183",
+      href: social.codeforces.href,
+    },
+    {
+      label: "CodeChef",
+      value: "6-star, max 2324",
+      href: social.codechef.href,
+    },
   ] satisfies Fact[],
   resultsTitle: "Best results",
   results: [
@@ -343,7 +360,11 @@ export const competitiveProgramming = {
       detail: "Champion",
       year: "2022",
     },
-    { title: "BUET Inter University Contest", detail: "4th place", year: "2023" },
+    {
+      title: "BUET Inter University Contest",
+      detail: "4th place",
+      year: "2023",
+    },
     {
       title: "Meta Hacker Cup, Round 3",
       detail: "259th of ~22,000",

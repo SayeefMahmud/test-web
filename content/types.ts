@@ -38,6 +38,14 @@ export type Shot = {
  * Device frame drawn around a project screenshot. `app`: no frame, the screenshot is a whole
  * macOS window (captured with ⌥ so it has no shadow; its transparent corners stay rounded).
  */
+/** 3D model shown in the project's media panel instead of the screenshot, on request. */
+export type ProjectModel = {
+  /** Path under `public/`, e.g. `/models/aurum.glb`. Exported with `npm run models:export`. */
+  src: string;
+  /** Accessible name of the 3D view, e.g. "Aurum, the ship in the screenshot, as a 3D model". */
+  label: string;
+};
+
 export type Frame = "browser" | "window" | "app" | "phone" | "land";
 
 /** Drives the status dot colour: ok, info, warn, muted. */
@@ -69,6 +77,11 @@ export type Project = {
   links: ProjectLink[];
   frame: Frame;
   shot: Shot;
+  /**
+   * Optional 3D model (a .glb under `public/models/`). When set, a "Screenshot / 3D model" switch
+   * appears under the project's media; the model loads only when a visitor picks it.
+   */
+  model?: ProjectModel;
   /** Brand colour of the project (not a design token; used for project-specific art only). */
   accent: string;
 };

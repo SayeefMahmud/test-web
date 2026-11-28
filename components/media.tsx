@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { ReactNode } from "react";
 import type { Frame, Shot } from "@/content/types";
 import { cx } from "./layout";
 
@@ -90,6 +91,8 @@ type DeviceFrameProps = {
   context?: "row" | "hero";
   /** `sizes` for `next/image` once a screenshot exists. */
   sizes?: string;
+  /** Replaces the screenshot inside a phone frame (`phone`, `land`), e.g. a 3D view. */
+  screen?: ReactNode;
 };
 
 /** A screenshot drawn inside a browser, desktop window, portrait phone or landscape phone, or frameless (`app`). */
@@ -98,6 +101,7 @@ export function DeviceFrame({
   shot,
   context = "row",
   sizes = "(min-width: 768px) 700px, 100vw",
+  screen,
 }: DeviceFrameProps) {
   const hero = context === "hero";
 
@@ -187,15 +191,26 @@ export function DeviceFrame({
           : "w-full rounded-[24px]",
       )}
     >
-      <Screen
-        shot={shot}
-        sizes={sizes}
-        textClassName={phone ? "text-[11px] p-3!" : "text-label p-3!"}
-        className={cx(
-          "box-border",
-          phone ? "size-full" : "aspect-[19/9] w-full",
-        )}
-      />
+      {screen ? (
+        <div
+          className={cx(
+            "relative overflow-hidden",
+            phone ? "size-full" : "aspect-[19/9] w-full",
+          )}
+        >
+          {screen}
+        </div>
+      ) : (
+        <Screen
+          shot={shot}
+          sizes={sizes}
+          textClassName={phone ? "text-[11px] p-3!" : "text-label p-3!"}
+          className={cx(
+            "box-border",
+            phone ? "size-full" : "aspect-[19/9] w-full",
+          )}
+        />
+      )}
     </div>
   );
 }
@@ -256,5 +271,23 @@ export function Portrait({
         />
       )}
     </div>
+  );
+}
+
+/**
+ * Backdrop for a 3D view inside a device frame: the project's screenshot, blurred and dimmed, so
+ * the model sits in the same sky as the screenshot. Decorative (empty alt).
+ */
+export function ScreenBackdrop({ shot }: { shot: Shot }) {
+  if (!shot.src) return <div className="bg-stripes absolute inset-0" />;
+  return (
+    <Image
+      src={shot.src}
+      alt=""
+      fill
+      sizes="400px"
+      quality={75}
+      className="scale-125 object-cover blur-xl brightness-[0.55]"
+    />
   );
 }

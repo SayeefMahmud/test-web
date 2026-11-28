@@ -3,7 +3,9 @@ import type { Project } from "@/content/types";
 import { labels } from "@/content/site";
 import { getCaseStudyHref } from "@/lib/projects";
 import { cx } from "./layout";
-import { DeviceFrame } from "./media";
+import { DeviceFrame, ScreenBackdrop } from "./media";
+import { ProjectMedia } from "./project-media";
+import { ShipViewer } from "./ship-viewer";
 import { DefinitionRows, StatusBadge, TextLink } from "./ui";
 
 type ProjectRowProps = {
@@ -21,7 +23,33 @@ const mediaPanel =
 /** One selected project: media panel in a device frame + text, alternating sides by index. */
 export function ProjectRow({ project: p, index, headingLevel: Heading = "h3" }: ProjectRowProps) {
   const caseStudy = getCaseStudyHref(p.slug);
-  const frame = <DeviceFrame frame={p.frame} shot={p.shot} />;
+  const screenshot = <DeviceFrame frame={p.frame} shot={p.shot} />;
+  const frame = p.model ? (
+    <ProjectMedia
+      screenshot={screenshot}
+      model={
+        <DeviceFrame
+          frame={p.frame}
+          shot={p.shot}
+          screen={
+            <>
+              <ScreenBackdrop shot={p.shot} />
+              <ShipViewer
+                src={p.model.src}
+                label={p.model.label}
+                hint={labels.mediaView.hint}
+                loadingLabel={labels.mediaView.loading}
+                failedLabel={labels.mediaView.failed}
+              />
+            </>
+          }
+        />
+      }
+      labels={labels.mediaView}
+    />
+  ) : (
+    screenshot
+  );
   const links = [
     ...p.links.flatMap((l) => (l.href ? [{ label: l.label, href: l.href, arrow: "↗" as const }] : [])),
     ...(caseStudy ? [{ label: labels.caseStudyLink, href: caseStudy, arrow: "→" as const }] : []),
@@ -35,7 +63,8 @@ export function ProjectRow({ project: p, index, headingLevel: Heading = "h3" }: 
         index % 2 === 1 && "flex-row-reverse",
       )}
     >
-      {caseStudy ? (
+      {/* A panel with a 3D switch holds buttons, so it can't also be a link. */}
+      {caseStudy && !p.model ? (
         // Mouse shortcut only: the "Case study" text link below is the accessible route,
         // so the media isn't a second tab stop with a mismatched name.
         <NextLink
@@ -50,7 +79,7 @@ export function ProjectRow({ project: p, index, headingLevel: Heading = "h3" }: 
           {frame}
         </NextLink>
       ) : (
-        <div className={mediaPanel}>{frame}</div>
+        <div className={cx(mediaPanel, p.model && "flex-col gap-3")}>{frame}</div>
       )}
 
       <div className="min-w-0 flex-[1_1_340px]">
