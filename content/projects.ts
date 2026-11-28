@@ -75,10 +75,13 @@ export const projects: Project[] = [
       label: "Screenshot: Nebula Dash gameplay, landscape phone",
       src: "/images/projects/nebula-dash/aurum-hud.png",
     },
-    // Aurum is the ship in the screenshot. Re-export after changing the ship in the game:
+    // Aurum is the ship in the screenshot. Re-export after changing the game's meshes:
     // `npm run models:export` (see scripts/export-ship.mjs).
     model: {
       src: "/models/aurum.glb",
+      // Ion Storm, the sky in the screenshot, with its next ring, coins and two asteroids.
+      sky: "/models/ion-storm-sky.webp",
+      props: "/models/ion-storm-props.glb",
       label: "Aurum, the ship in the screenshot, as a 3D model",
     },
     accent: "#2E3480",

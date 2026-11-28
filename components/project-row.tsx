@@ -36,6 +36,8 @@ export function ProjectRow({ project: p, index, headingLevel: Heading = "h3" }: 
               <ScreenBackdrop shot={p.shot} />
               <ShipViewer
                 src={p.model.src}
+                sky={p.model.sky}
+                props={p.model.props}
                 label={p.model.label}
                 hint={labels.mediaView.hint}
                 loadingLabel={labels.mediaView.loading}

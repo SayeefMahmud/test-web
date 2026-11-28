@@ -42,6 +42,10 @@ export type Shot = {
 export type ProjectModel = {
   /** Path under `public/`, e.g. `/models/aurum.glb`. Exported with `npm run models:export`. */
   src: string;
+  /** Equirectangular sky image from the game, drawn behind the model (optional). */
+  sky?: string;
+  /** .glb of game objects placed around the model (optional). */
+  props?: string;
   /** Accessible name of the 3D view, e.g. "Aurum, the ship in the screenshot, as a 3D model". */
   label: string;
 };
