@@ -27,14 +27,15 @@ export function ProjectMedia({ screenshot, model, labels }: ProjectMediaProps) {
   return (
     <>
       {/* Landscape phone: outer height = (width − 14px bezel) × 9/19 + 14px. The panel's content
-          box (100cqh) also holds the 50px switch and the 12px gap. */}
-      <div className="w-[min(100cqw,calc((100cqh-76px)*19/9+14px))] flex-none">
+          box (100cqh) also holds the 12px gap and the switch: 38px below md, 42px from md
+          (button + 2px padding + 1px border, top and bottom). Reserve = gap + switch + 14px bezel. */}
+      <div className="w-[min(100cqw,calc((100cqh-64px)*19/9+14px))] flex-none md:w-[min(100cqw,calc((100cqh-68px)*19/9+14px))]">
         {view === "screenshot" ? screenshot : model}
       </div>
       <div
         role="group"
         aria-label={labels.group}
-        className="inline-flex flex-none gap-[3px] rounded-control border border-border2 bg-surface p-[2px]"
+        className="inline-flex flex-none gap-[2px] rounded-control border border-border2 bg-surface p-[2px]"
       >
         {options.map((o) => (
           <button
@@ -43,7 +44,9 @@ export function ProjectMedia({ screenshot, model, labels }: ProjectMediaProps) {
             aria-pressed={view === o.value}
             onClick={() => setView(o.value)}
             className={cx(
-              "h-11 cursor-pointer rounded-[6px] px-4 text-ui font-medium transition-colors duration-150",
+              // 32px tall below md, 36px from md. The ::before strip stretches the tap area to 44px.
+              "relative h-8 cursor-pointer rounded-[6px] px-3 text-[13px] font-medium transition-colors duration-150 md:h-9 md:px-3.5 md:text-small",
+              "before:absolute before:inset-x-0 before:-inset-y-1.5 before:content-[''] md:before:-inset-y-1",
               view === o.value ? "bg-fg text-bg" : "text-muted hover:text-fg",
             )}
           >
